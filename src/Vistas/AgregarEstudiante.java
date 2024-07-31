@@ -49,8 +49,41 @@ public class AgregarEstudiante extends javax.swing.JFrame {
     }
 
     private int BuscarIdCursoSelecionado() {
+        
+        int curso=0;
+        
+        if(cmbCursos.getSelectedItem().equals("1ro de Bachillerato"))
+        {
+            curso=200;
+            return curso;
+        }
+        else if(cmbCursos.getSelectedItem().equals("2do de Bachillerato"))
+        {
+            curso=201;
+            return curso;
+        }
+        else if(cmbCursos.getSelectedItem().equals("3ro de Bachillerato"))
+        {
+            curso=202;
+            return curso;
+        }
+        else if(cmbCursos.getSelectedItem().equals("4to de Bachillerato"))
+        {
+            curso=203;
+            return curso;
+        }
+        else if(cmbCursos.getSelectedItem().equals("5do de Bachillerato"))
+        {
+            curso=204;
+            return curso;
+        }
+        else if(cmbCursos.getSelectedItem().equals("6to de Bachillerato"))
+        {
+            curso=205;
+            return curso;
+        }
 
-        return -1; // o cualquier otro valor indicando que no se encontró el curso
+        return curso; 
     }
     
     
