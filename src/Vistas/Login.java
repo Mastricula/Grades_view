@@ -15,20 +15,14 @@ public class Login extends javax.swing.JFrame {
 
     int mouseX;
     int mouseY;
-
+        
     public Login() {
         initComponents();
-        //Poniendo icono
-        setIconImage(new ImageIcon(getClass().getResource("/IMG/IconoProye.png")).getImage());
-        //La ventana sera trasparente
-        setBackground(new Color(0, 0, 0, 0));
-        
-        // La ventana saldrá en el centro
-        setLocationRelativeTo(null);
-        
-        //Estableciendo el caracter de la contraseña
-        inputPass.setEchoChar('•');
-        setExtendedState(NORMAL);  
+        setIconImage(new ImageIcon(getClass().getResource("/IMG/IconoProye.png")).getImage()); //Poniendo icono
+        setBackground(new Color(0, 0, 0, 0));//La ventana sera trasparente
+        setLocationRelativeTo(null); // La ventana saldrá en el centro
+        inputPass.setEchoChar('•'); //Estableciendo el caracter de la contraseña
+        setExtendedState(NORMAL); //Estado de la ventana
     }
 
     @SuppressWarnings("unchecked")
@@ -38,15 +32,15 @@ public class Login extends javax.swing.JFrame {
         pnlBase = new javax.swing.JPanel();
         pnlFondo = new javax.swing.JPanel();
         lblLogin = new javax.swing.JLabel();
-        btnIniciar = new rojeru_san.rsbutton.RSButtonRound();
         inputUsu = new rojeru_san.rsfield.RSTextFullRound();
         inputPass = new rojeru_san.rsfield.RSPassRound();
         lblUser = new javax.swing.JLabel();
         lblPass = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         lblVer = new javax.swing.JLabel();
-        lblCerrar = new javax.swing.JLabel();
-        lblMini = new javax.swing.JLabel();
+        btnCerrar = new rojeru_san.complementos.RSButtonHover();
+        btnMini = new rojeru_san.complementos.RSButtonHover();
+        btnIniciar = new rojeru_san.rsbutton.RSButtonRound();
         pnlBarra = new javax.swing.JPanel();
         lblFondo = new javax.swing.JLabel();
 
@@ -63,21 +57,6 @@ public class Login extends javax.swing.JFrame {
         lblLogin.setForeground(new java.awt.Color(51, 51, 51));
         lblLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogin.setText("LOGIN");
-
-        btnIniciar.setBackground(new java.awt.Color(0, 173, 181));
-        btnIniciar.setText("INICIAR");
-        btnIniciar.setColorHover(new java.awt.Color(2, 133, 139));
-        btnIniciar.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        btnIniciar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnIniciarMouseEntered(evt);
-            }
-        });
-        btnIniciar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIniciarActionPerformed(evt);
-            }
-        });
 
         inputUsu.setBackground(new java.awt.Color(238, 238, 238));
         inputUsu.setForeground(new java.awt.Color(51, 51, 51));
@@ -122,35 +101,33 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        lblCerrar.setBackground(new java.awt.Color(238, 238, 238));
-        lblCerrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Iconos/cerrar.png"))); // NOI18N
-        lblCerrar.setOpaque(true);
-        lblCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblCerrarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblCerrarMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblCerrarMousePressed(evt);
+        btnCerrar.setBackground(new java.awt.Color(238, 238, 238));
+        btnCerrar.setBorder(null);
+        btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Iconos/cerrar2.png"))); // NOI18N
+        btnCerrar.setColorHover(new java.awt.Color(251, 77, 77));
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
             }
         });
 
-        lblMini.setBackground(new java.awt.Color(238, 238, 238));
-        lblMini.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblMini.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Iconos/minus.png"))); // NOI18N
-        lblMini.setOpaque(true);
-        lblMini.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblMiniMouseEntered(evt);
+        btnMini.setBackground(new java.awt.Color(238, 238, 238));
+        btnMini.setBorder(null);
+        btnMini.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Iconos/minus.png"))); // NOI18N
+        btnMini.setColorHover(new java.awt.Color(195, 192, 192));
+        btnMini.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMiniActionPerformed(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblMiniMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblMiniMousePressed(evt);
+        });
+
+        btnIniciar.setBackground(new java.awt.Color(0, 173, 181));
+        btnIniciar.setText("INICIAR");
+        btnIniciar.setColorHover(new java.awt.Color(2, 133, 139));
+        btnIniciar.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarActionPerformed(evt);
             }
         });
 
@@ -180,16 +157,16 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(103, 103, 103))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFondoLayout.createSequentialGroup()
-                        .addComponent(lblMini, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnMini, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(lblCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         pnlFondoLayout.setVerticalGroup(
             pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFondoLayout.createSequentialGroup()
-                .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                    .addComponent(lblMini, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMini, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(124, 124, 124)
                 .addComponent(lblLogin)
                 .addGap(0, 0, 0)
@@ -252,35 +229,6 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void lblMiniMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMiniMousePressed
-        //Estableciendo nuevo color
-        lblMini.setBackground(new Color(0xD3D3D3));
-        setExtendedState(ICONIFIED);
-    }//GEN-LAST:event_lblMiniMousePressed
-
-    private void lblMiniMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMiniMouseExited
-        //Restableciendo el color
-        lblMini.setBackground(new Color(0xEEEEEE));
-    }//GEN-LAST:event_lblMiniMouseExited
-
-    private void lblMiniMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMiniMouseEntered
-        lblMini.setBackground(new Color(0xB6B6B6));
-    }//GEN-LAST:event_lblMiniMouseEntered
-
-    private void lblCerrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCerrarMousePressed
-        lblCerrar.setBackground(new Color(0xFA6565));
-        //this.dispose();
-        System.exit(0);
-    }//GEN-LAST:event_lblCerrarMousePressed
-
-    private void lblCerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCerrarMouseExited
-        lblCerrar.setBackground(new Color(0xEEEEEE));
-    }//GEN-LAST:event_lblCerrarMouseExited
-
-    private void lblCerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCerrarMouseEntered
-        lblCerrar.setBackground(new Color(0xFA3030));
-    }//GEN-LAST:event_lblCerrarMouseEntered
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         //Instanciamos la clase
@@ -361,9 +309,14 @@ public class Login extends javax.swing.JFrame {
         inputPass.setEchoChar('•');
     }//GEN-LAST:event_lblVerMouseReleased
 
-    private void btnIniciarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnIniciarMouseEntered
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        //this.dispose();
+        System.exit(0);
+    }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void btnMiniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiniActionPerformed
+        setExtendedState(ICONIFIED);
+    }//GEN-LAST:event_btnMiniActionPerformed
 
     public static void main(String args[]) {
 
@@ -375,19 +328,18 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rojeru_san.complementos.RSButtonHover btnCerrar;
     private rojeru_san.rsbutton.RSButtonRound btnIniciar;
+    private rojeru_san.complementos.RSButtonHover btnMini;
     private rojeru_san.rsfield.RSPassRound inputPass;
     private rojeru_san.rsfield.RSTextFullRound inputUsu;
-    private javax.swing.JLabel lblCerrar;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblLogin;
-    private javax.swing.JLabel lblMini;
     private javax.swing.JLabel lblPass;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblUser;
     private javax.swing.JLabel lblVer;
     private javax.swing.JPanel pnlBarra;
-    private javax.swing.JPanel pnlBarra1;
     private javax.swing.JPanel pnlBase;
     private javax.swing.JPanel pnlFondo;
     // End of variables declaration//GEN-END:variables

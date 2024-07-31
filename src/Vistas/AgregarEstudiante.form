@@ -374,6 +374,9 @@
               <Font name="Poppins" size="14" style="1"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMostrarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="rojeru_san.rsbutton.RSButtonRound" name="btnImportar">
           <Properties>
