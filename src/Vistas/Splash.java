@@ -13,8 +13,6 @@ public final class Splash extends javax.swing.JFrame {
         setLocationRelativeTo(null); //La ventana saldra en el centro
         setBackground(new Color(0, 0, 0, 0));
         setIconImage(new ImageIcon(getClass().getResource("/IMG/IconoProye.png")).getImage());
-        
-
     }
    
     @SuppressWarnings("unchecked")

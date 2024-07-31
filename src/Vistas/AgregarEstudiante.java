@@ -11,6 +11,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class AgregarEstudiante extends javax.swing.JFrame {
 
     private void agregarDatosAlCombobox() {
@@ -81,7 +85,8 @@ public class AgregarEstudiante extends javax.swing.JFrame {
 
         return curso; 
     }
-
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -243,6 +248,11 @@ public class AgregarEstudiante extends javax.swing.JFrame {
         btnMostrar.setText("MOSTRAR");
         btnMostrar.setColorHover(new java.awt.Color(51, 51, 51));
         btnMostrar.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarActionPerformed(evt);
+            }
+        });
 
         btnImportar.setBackground(new java.awt.Color(102, 102, 102));
         btnImportar.setText("IMPORTAR");
@@ -408,6 +418,10 @@ public class AgregarEstudiante extends javax.swing.JFrame {
     private void inputEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputEdadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputEdadActionPerformed
+
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMostrarActionPerformed
 
     /**
      * @param args the command line arguments
