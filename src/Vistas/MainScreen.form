@@ -536,6 +536,9 @@
                 </Property>
                 <Property name="horizontalTextPosition" type="int" value="10"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgProfActionPerformed"/>
+              </Events>
             </Component>
             <Component class="rojeru_san.rsbutton.RSButtonRoundEffect" name="btnAgMat">
               <Properties>

@@ -2,7 +2,7 @@ package Vistas;
 
 import javax.swing.JOptionPane;
 
-import Controller.Conexion;
+import Controller.*;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 

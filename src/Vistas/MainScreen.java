@@ -1,5 +1,6 @@
 package Vistas;
 
+import Controller.*;
 import java.awt.*;
 import javax.swing.ImageIcon;
 
@@ -12,6 +13,7 @@ public class MainScreen extends javax.swing.JFrame {
     int num = 90;
     int num2 = 100;
     int pro = (num + num2) / 2;
+    Conexion cx = new Conexion();
 
     public MainScreen() {
         initComponents();
@@ -19,11 +21,20 @@ public class MainScreen extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         EstadoMenuAgregar(false);
         EstadoMenuModificar(false);
-        prgPromedio.setString(Integer.toString(pro));
-        prgPromedio.setValue(pro);
-        prgPromedio.setMaximum(100);
+        AnimacionPromedio();
     }
 
+    private void AnimacionPromedio() {
+        prgPromedio.setMaximum(100);
+        
+        for(int i = 0; i >= pro; i++){
+            prgPromedio.setValue(i);
+        }
+        prgPromedio.setString(Integer.toString(pro));
+        prgPromedio.setAnimated(false);
+    }
+    
+    
     private void EstadoMenuAgregar(boolean visible) {
         btnAgEst.setVisible(visible);
         btnAgProf.setVisible(visible);
@@ -292,6 +303,11 @@ public class MainScreen extends javax.swing.JFrame {
         btnAgProf.setColorHover(new java.awt.Color(2, 133, 139));
         btnAgProf.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         btnAgProf.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        btnAgProf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgProfActionPerformed(evt);
+            }
+        });
 
         btnAgMat.setBackground(new java.awt.Color(0, 173, 181));
         btnAgMat.setBorder(null);
@@ -486,6 +502,7 @@ public class MainScreen extends javax.swing.JFrame {
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         //this.dispose();
         System.exit(0);
+        cx.desconectar();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnMaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaxActionPerformed
@@ -512,8 +529,14 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgEstActionPerformed
 
     private void btnMoEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoEstActionPerformed
-        System.out.println("Menu Modificar");
+        Administracion admin = new Administracion();
+        admin.GenerarMatricula();
+        System.out.println(admin.mastricula);
     }//GEN-LAST:event_btnMoEstActionPerformed
+
+    private void btnAgProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgProfActionPerformed
+
+    }//GEN-LAST:event_btnAgProfActionPerformed
 
     public static void main(String args[]) {
 
