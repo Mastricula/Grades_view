@@ -1,6 +1,5 @@
 package Controller;
 
-
 import Vistas.*;
 import java.time.LocalDate;
 import java.sql.Statement;
@@ -41,10 +40,10 @@ public class Administracion {
         return ultimoContador;
     }
 
-    public String GenerarMatricula() {
+    public String GenerarMatricula(String tabla, String campo) {
 
         if (counter == -1) {
-            counter = obtenerUltimoContador("estudiantes", "id_estu") + 1;
+            counter = obtenerUltimoContador(tabla, campo) + 1;
         }
 
         LocalDate fecha = LocalDate.now();
@@ -57,5 +56,3 @@ public class Administracion {
         return mastricula;
     }
 }
-
-        
