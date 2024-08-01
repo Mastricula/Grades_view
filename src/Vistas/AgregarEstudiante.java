@@ -3,6 +3,7 @@ package Vistas;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import Controller.Conexion;
+import Controller.Importar;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -227,6 +228,11 @@ public class AgregarEstudiante extends javax.swing.JFrame {
         btnImportar.setText("IMPORTAR");
         btnImportar.setColorHover(new java.awt.Color(51, 51, 51));
         btnImportar.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnImportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlBaseLayout = new javax.swing.GroupLayout(pnlBase);
         pnlBase.setLayout(pnlBaseLayout);
@@ -371,6 +377,12 @@ public class AgregarEstudiante extends javax.swing.JFrame {
     private void btnMiniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiniActionPerformed
         setExtendedState(ICONIFIED);
     }//GEN-LAST:event_btnMiniActionPerformed
+
+    private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
+        // TODO add your handling code here:
+        Importar importar = new Importar();
+        importar.documento();
+    }//GEN-LAST:event_btnImportarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

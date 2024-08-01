@@ -173,6 +173,11 @@ public class Agregar extends javax.swing.JInternalFrame {
         btnImportar.setText("IMPORTAR");
         btnImportar.setColorHover(new java.awt.Color(51, 51, 51));
         btnImportar.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnImportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportarActionPerformed(evt);
+            }
+        });
 
         lblCurso1.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         lblCurso1.setForeground(new java.awt.Color(102, 102, 102));
@@ -305,6 +310,10 @@ public class Agregar extends javax.swing.JInternalFrame {
     private void inputApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputApellidoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputApellidoActionPerformed
+
+    private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnImportarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -396,6 +396,9 @@
               <Font name="Poppins" size="14" style="1"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImportarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
