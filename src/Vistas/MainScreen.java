@@ -530,7 +530,7 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void btnMoEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoEstActionPerformed
         Administracion admin = new Administracion();
-        admin.GenerarMatricula();
+        admin.GenerarMatricula("estudiantes", "id_estu");
         System.out.println(admin.mastricula);
     }//GEN-LAST:event_btnMoEstActionPerformed
 

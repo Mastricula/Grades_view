@@ -22,7 +22,7 @@ materia VARCHAR(20) NOT NULL
 
 CREATE TABLE Profesores (
 id_profe INT PRIMARY KEY AUTO_INCREMENT,
-matricula_profe VARCHAR(25) NOT NULL,
+matricula VARCHAR(25) NOT NULL,
 nombre VARCHAR(20) NOT NULL,
 apellido VARCHAR(20) NOT NULL,
 cedula VARCHAR(11) NOT NULL,
@@ -32,7 +32,7 @@ CONSTRAINT fk_profe_usu FOREIGN KEY (id_usu) REFERENCES usuarios(id_usu)
 
 CREATE TABLE Estudiantes (
 id_estu INT PRIMARY KEY AUTO_INCREMENT,
-matricula_estu VARCHAR(25) NOT NULL,
+matricula VARCHAR(25) NOT NULL,
 nombre VARCHAR(20) NOT NULL,
 apellido VARCHAR(20) NOT NULL,
 fecha_nacimiento DATE NOT NULL,
@@ -98,16 +98,16 @@ INSERT INTO Materias (materia) VALUES ('Sociales');
 
 SELECT * FROM Materias;
 
-INSERT INTO Estudiantes (matricula_estu, nombre, apellido, fecha_nacimiento, id_curso, id_usu) VALUES ('2024-0000', 'Miguel', 'Alcantara', '2007-01-12', 6, 9);
-INSERT INTO Estudiantes (matricula_estu, nombre, apellido, fecha_nacimiento, id_curso, id_usu) VALUES ('2024-0001', 'Dorian', 'Ogando', '2008-12-21', 5, 9);
-INSERT INTO Estudiantes (matricula_estu, nombre, apellido, fecha_nacimiento, id_curso, id_usu) VALUES ('2024-0002', 'Joao', 'Navarro', '2009-10-10', 4, 10);
+INSERT INTO Estudiantes (matricula, nombre, apellido, fecha_nacimiento, id_curso, id_usu) VALUES ('2024-0000', 'Miguel', 'Alcantara', '2007-01-12', 6, 9);
+INSERT INTO Estudiantes (matricula, nombre, apellido, fecha_nacimiento, id_curso, id_usu) VALUES ('2024-0001', 'Dorian', 'Ogando', '2008-12-21', 5, 9);
+INSERT INTO Estudiantes (matricula, nombre, apellido, fecha_nacimiento, id_curso, id_usu) VALUES ('2024-0002', 'Joao', 'Navarro', '2009-10-10', 4, 10);
 
 SELECT * FROM Estudiantes;
 
-INSERT INTO Profesores (matricula_profe, nombre, apellido, cedula, id_usu) VALUES ('P-0000','Freidy', 'Nuñes', '00112345671' , 5);
-INSERT INTO Profesores (matricula_profe, nombre, apellido, cedula, id_usu) VALUES ('P-0001', 'Maribel', 'Rodriguez', '04598765431', 6);
-INSERT INTO Profesores (matricula_profe, nombre, apellido, cedula, id_usu) VALUES ('P-0002', 'Mariela', 'Perdomo', '10145678901', 7);
-INSERT INTO Profesores (matricula_profe, nombre, apellido, cedula, id_usu) VALUES ('P-0001', 'Juan', 'Perez', '05732165491', 8);
+INSERT INTO Profesores (matricula, nombre, apellido, cedula, id_usu) VALUES ('P-0000','Freidy', 'Nuñes', '00112345671' , 5);
+INSERT INTO Profesores (matricula, nombre, apellido, cedula, id_usu) VALUES ('P-0001', 'Maribel', 'Rodriguez', '04598765431', 6);
+INSERT INTO Profesores (matricula, nombre, apellido, cedula, id_usu) VALUES ('P-0002', 'Mariela', 'Perdomo', '10145678901', 7);
+INSERT INTO Profesores (matricula, nombre, apellido, cedula, id_usu) VALUES ('P-0001', 'Juan', 'Perez', '05732165491', 8);
 
 
 INSERT INTO profe_mate VALUES (1,1);
@@ -160,9 +160,13 @@ INSERT INTO curso_mate VALUES (6,2);
 INSERT INTO curso_mate VALUES (6,3);
 INSERT INTO curso_mate VALUES (6,4);
 
+SELECT matricula FROM Estudiantes ORDER BY id_estu DESC LIMIT 1;
+
 desc profe_cursos;
 desc curso_mate;
 desc profe_mate;
+
+desc estudiantes;
 
 SELECT * FROM Profesores;
 SELECT * FROM curso_mate;
