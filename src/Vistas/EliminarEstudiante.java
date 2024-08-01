@@ -103,6 +103,7 @@ public class EliminarEstudiante extends javax.swing.JFrame {
       {
         Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);  
       }
+      MostrarEstudiantesComboBox();
        
       
     }
