@@ -1,6 +1,5 @@
 package Vistas;
 
-import java.util.HashMap;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import Controller.Conexion;
@@ -11,11 +10,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-import java.sql.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class AgregarEstudiante extends javax.swing.JFrame {
+
+    int mouseX;
+    int mouseY;
+
+    public AgregarEstudiante() {
+
+        initComponents();
+        agregarDatosAlCombobox();
+        setLocationRelativeTo(null);
+        setExtendedState(NORMAL);
+    }
 
     private void agregarDatosAlCombobox() {
         Conexion conexion = new Conexion();
@@ -37,64 +43,39 @@ public class AgregarEstudiante extends javax.swing.JFrame {
         }
     }
 
-    int mouseX;
-    int mouseY;
-
-    public AgregarEstudiante() {
-
-        initComponents();
-        agregarDatosAlCombobox();
-        setLocationRelativeTo(null);
-        setExtendedState(NORMAL);
-    }
-
     private int BuscarIdCursoSelecionado() {
-        
-        int curso=0;
-        
-        if(cmbCursos.getSelectedItem().equals("1ro de Bachillerato"))
-        {
-            curso=200;
-            return curso;
-        }
-        else if(cmbCursos.getSelectedItem().equals("2do de Bachillerato"))
-        {
-            curso=201;
-            return curso;
-        }
-        else if(cmbCursos.getSelectedItem().equals("3ro de Bachillerato"))
-        {
-            curso=202;
-            return curso;
-        }
-        else if(cmbCursos.getSelectedItem().equals("4to de Bachillerato"))
-        {
-            curso=203;
-            return curso;
-        }
-        else if(cmbCursos.getSelectedItem().equals("5do de Bachillerato"))
-        {
-            curso=204;
-            return curso;
-        }
-        else if(cmbCursos.getSelectedItem().equals("6to de Bachillerato"))
-        {
-            curso=205;
-            return curso;
-        }
+        int curso = 0;
 
-        return curso; 
+        if (cmbCursos.getSelectedItem().equals("1ro de Bachillerato")) {
+            curso = 200;
+            return curso;
+        } else if (cmbCursos.getSelectedItem().equals("2do de Bachillerato")) {
+            curso = 201;
+            return curso;
+        } else if (cmbCursos.getSelectedItem().equals("3ro de Bachillerato")) {
+            curso = 202;
+            return curso;
+        } else if (cmbCursos.getSelectedItem().equals("4to de Bachillerato")) {
+            curso = 203;
+            return curso;
+        } else if (cmbCursos.getSelectedItem().equals("5do de Bachillerato")) {
+            curso = 204;
+            return curso;
+        } else if (cmbCursos.getSelectedItem().equals("6to de Bachillerato")) {
+            curso = 205;
+            return curso;
+        }
+        return curso;
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         pnlBase = new javax.swing.JPanel();
         pnlBarra = new javax.swing.JPanel();
-        lblCerrar = new javax.swing.JLabel();
-        lblMini = new javax.swing.JLabel();
+        btnCerrar = new rojeru_san.complementos.RSButtonHover();
+        btnMini = new rojeru_san.complementos.RSButtonHover();
         btnIngresar = new rojeru_san.rsbutton.RSButtonRound();
         inputNombre = new rojeru_san.rsfield.RSTextFullRound();
         inputApellido = new rojeru_san.rsfield.RSTextFullRound();
@@ -126,35 +107,23 @@ public class AgregarEstudiante extends javax.swing.JFrame {
             }
         });
 
-        lblCerrar.setBackground(new java.awt.Color(238, 238, 238));
-        lblCerrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Iconos/cerrar.png"))); // NOI18N
-        lblCerrar.setOpaque(true);
-        lblCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblCerrarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblCerrarMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblCerrarMousePressed(evt);
+        btnCerrar.setBackground(new java.awt.Color(238, 238, 238));
+        btnCerrar.setBorder(null);
+        btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Iconos/cerrar2.png"))); // NOI18N
+        btnCerrar.setColorHover(new java.awt.Color(251, 77, 77));
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
             }
         });
 
-        lblMini.setBackground(new java.awt.Color(238, 238, 238));
-        lblMini.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblMini.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Iconos/minus.png"))); // NOI18N
-        lblMini.setOpaque(true);
-        lblMini.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblMiniMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblMiniMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblMiniMousePressed(evt);
+        btnMini.setBackground(new java.awt.Color(238, 238, 238));
+        btnMini.setBorder(null);
+        btnMini.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Iconos/minus.png"))); // NOI18N
+        btnMini.setColorHover(new java.awt.Color(195, 192, 192));
+        btnMini.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMiniActionPerformed(evt);
             }
         });
 
@@ -164,17 +133,17 @@ public class AgregarEstudiante extends javax.swing.JFrame {
             pnlBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBarraLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblMini, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnMini, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(lblCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnlBarraLayout.setVerticalGroup(
             pnlBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBarraLayout.createSequentialGroup()
-                .addGroup(pnlBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblMini, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBarraLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(pnlBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMini, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         btnIngresar.setBackground(new java.awt.Color(102, 102, 102));
@@ -386,35 +355,6 @@ public class AgregarEstudiante extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
-    private void lblCerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCerrarMouseEntered
-        lblCerrar.setBackground(new Color(0xFA3030));
-    }//GEN-LAST:event_lblCerrarMouseEntered
-
-    private void lblCerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCerrarMouseExited
-        lblCerrar.setBackground(new Color(0xEEEEEE));
-    }//GEN-LAST:event_lblCerrarMouseExited
-
-    private void lblCerrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCerrarMousePressed
-        lblCerrar.setBackground(new Color(0xFA6565));
-        //this.dispose();
-        System.exit(0);
-    }//GEN-LAST:event_lblCerrarMousePressed
-
-    private void lblMiniMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMiniMouseEntered
-        lblMini.setBackground(new Color(0xB6B6B6));
-    }//GEN-LAST:event_lblMiniMouseEntered
-
-    private void lblMiniMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMiniMouseExited
-        //Restableciendo el color
-        lblMini.setBackground(new Color(0xEEEEEE));
-    }//GEN-LAST:event_lblMiniMouseExited
-
-    private void lblMiniMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMiniMousePressed
-        //Estableciendo nuevo color
-        lblMini.setBackground(new Color(0xD3D3D3));
-        setExtendedState(ICONIFIED);
-    }//GEN-LAST:event_lblMiniMousePressed
-
     private void inputEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputEdadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputEdadActionPerformed
@@ -423,9 +363,15 @@ public class AgregarEstudiante extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMostrarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        //this.dispose();
+        System.exit(0);
+    }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void btnMiniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiniActionPerformed
+        setExtendedState(ICONIFIED);
+    }//GEN-LAST:event_btnMiniActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -459,18 +405,18 @@ public class AgregarEstudiante extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rojeru_san.complementos.RSButtonHover btnCerrar;
     private rojeru_san.rsbutton.RSButtonRound btnImportar;
     private rojeru_san.rsbutton.RSButtonRound btnIngresar;
+    private rojeru_san.complementos.RSButtonHover btnMini;
     private rojeru_san.rsbutton.RSButtonRound btnMostrar;
-    private javax.swing.JComboBox<String> cmbCursos;
+    public javax.swing.JComboBox<String> cmbCursos;
     private rojeru_san.rsfield.RSTextFullRound inputApellido;
     private rojeru_san.rsfield.RSTextFullRound inputEdad;
     private rojeru_san.rsfield.RSTextFullRound inputId;
     private rojeru_san.rsfield.RSTextFullRound inputNombre;
     private javax.swing.JLabel lblApellido;
-    private javax.swing.JLabel lblCerrar;
     private javax.swing.JLabel lblCurso;
-    private javax.swing.JLabel lblMini;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pnlBarra;
