@@ -1,11 +1,14 @@
 package Vistas;
 
+import Controller.*;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import Controller.Conexion;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -21,6 +24,68 @@ public class AgregarEstudiante extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setExtendedState(NORMAL);
     }
+    private String obtenerFecha() {
+    Date fechaSeleccionada = inputFecha.getDatoFecha();
+    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+    return formato.format(fechaSeleccionada);
+}
+    private void agregarEstudiante()
+    {
+        
+        Administracion admin = new Administracion();
+        
+   
+        Conexion conectado = new Conexion();
+        Connection conect = conectado.Conectar();
+
+        // Se  obtiene los valores de los jtexfield y del comBox
+       
+        String nombres = inputNombre.getText();
+        String apellidos = inputApellido.getText();
+        String fechaNacimiento = obtenerFecha();
+        int idCurso = BuscarIdCursoSelecionado();
+        int id_usu=0;
+        
+        
+        System.out.println(fechaNacimiento);
+
+        if (nombres.isEmpty() || apellidos.isEmpty() || fechaNacimiento.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "SE DEBEN LLENAR TODOS LO CAMPOS REQUERIDOS");
+
+        } else {
+            String matricula = admin.GenerarMatricula("Estudiantes", "id_estu");
+            System.out.println(matricula);
+            //admin.CrearUsuario(matricula);
+            try {
+               
+
+                Statement statement = conect.createStatement();
+                
+                ResultSet resultado=statement.executeQuery("SELECT id_usu FROM Usuarios WHERE usu='"+matricula+"' ");
+                if(resultado.next())
+                {
+                    id_usu=resultado.getInt("id_usu");
+                }
+                
+                System.out.println(id_usu);
+                System.out.println(idCurso);
+                
+                
+
+                statement.executeUpdate("INSERT INTO Estudiantes(matricula,nombre,apellido,fecha_nacimiento,id_curso,id_usu) values('" + matricula + "','" + nombres + "','" + apellidos + "','" + fechaNacimiento + "', "+ idCurso+", '"+id_usu+"' )");
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Edad e Id del Curso deben ser números válidos", "Error", JOptionPane.ERROR_MESSAGE);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+
+            }
+
+        }
+    }                                            
+    
+    
 
     private void agregarDatosAlCombobox() {
         Conexion conexion = new Conexion();
@@ -45,23 +110,23 @@ public class AgregarEstudiante extends javax.swing.JFrame {
     private int BuscarIdCursoSelecionado() {
         int curso = 0;
 
-        if (cmbCursos.getSelectedItem().equals("1ro de Bachillerato")) {
-            curso = 200;
+        if (cmbCursos.getSelectedItem().equals("1ro de Secundaria")) {
+            curso = 1;
             return curso;
-        } else if (cmbCursos.getSelectedItem().equals("2do de Bachillerato")) {
-            curso = 201;
+        } else if (cmbCursos.getSelectedItem().equals("2do de Secundaria")) {
+            curso = 2;
             return curso;
-        } else if (cmbCursos.getSelectedItem().equals("3ro de Bachillerato")) {
-            curso = 202;
+        } else if (cmbCursos.getSelectedItem().equals("3ro de Secundaria")) {
+            curso = 3;
             return curso;
-        } else if (cmbCursos.getSelectedItem().equals("4to de Bachillerato")) {
-            curso = 203;
+        } else if (cmbCursos.getSelectedItem().equals("4to de Secundaria")) {
+            curso = 4;
             return curso;
-        } else if (cmbCursos.getSelectedItem().equals("5do de Bachillerato")) {
-            curso = 204;
+        } else if (cmbCursos.getSelectedItem().equals("5do de Secundaria")) {
+            curso = 5;
             return curso;
-        } else if (cmbCursos.getSelectedItem().equals("6to de Bachillerato")) {
-            curso = 205;
+        } else if (cmbCursos.getSelectedItem().equals("6to de Secundaria")) {
+            curso = 6;
             return curso;
         }
         return curso;
@@ -87,6 +152,8 @@ public class AgregarEstudiante extends javax.swing.JFrame {
         cmbCursos = new javax.swing.JComboBox<>();
         btnMostrar = new rojeru_san.rsbutton.RSButtonRound();
         btnImportar = new rojeru_san.rsbutton.RSButtonRound();
+        inputFecha = new rojeru_san.rsdate.RSDateChooser();
+        lblApellido1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -227,6 +294,11 @@ public class AgregarEstudiante extends javax.swing.JFrame {
         btnImportar.setColorHover(new java.awt.Color(51, 51, 51));
         btnImportar.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
+        lblApellido1.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
+        lblApellido1.setForeground(new java.awt.Color(102, 102, 102));
+        lblApellido1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblApellido1.setText("Fecha De Nacimiento");
+
         javax.swing.GroupLayout pnlBaseLayout = new javax.swing.GroupLayout(pnlBase);
         pnlBase.setLayout(pnlBaseLayout);
         pnlBaseLayout.setHorizontalGroup(
@@ -234,59 +306,74 @@ public class AgregarEstudiante extends javax.swing.JFrame {
             .addComponent(pnlBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnlBaseLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBaseLayout.createSequentialGroup()
-                .addContainerGap(82, Short.MAX_VALUE)
                 .addGroup(pnlBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(lblCurso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(inputNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblApellido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(inputApellido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(pnlBaseLayout.createSequentialGroup()
-                            .addComponent(inputEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(inputId, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pnlBaseLayout.createSequentialGroup()
-                            .addComponent(btnMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnImportar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(btnIngresar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(82, 82, 82))
+                    .addGroup(pnlBaseLayout.createSequentialGroup()
+                        .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBaseLayout.createSequentialGroup()
+                        .addComponent(inputEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addGroup(pnlBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBaseLayout.createSequentialGroup()
+                                .addGroup(pnlBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(lblNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(inputNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblApellido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(inputApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(pnlBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(pnlBaseLayout.createSequentialGroup()
+                                            .addComponent(btnMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(btnImportar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnIngresar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cmbCursos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(lblCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lblApellido1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(82, 82, 82))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBaseLayout.createSequentialGroup()
+                                .addComponent(inputId, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+                            .addGroup(pnlBaseLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(inputFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(82, 82, 82))))))
         );
         pnlBaseLayout.setVerticalGroup(
             pnlBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBaseLayout.createSequentialGroup()
                 .addComponent(pnlBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addComponent(lblTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(lblNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addComponent(lblApellido)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inputApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lblCurso)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblApellido1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnImportar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addComponent(inputFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(pnlBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(inputEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(inputId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBaseLayout.createSequentialGroup()
+                        .addComponent(lblCurso)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnImportar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -317,41 +404,7 @@ public class AgregarEstudiante extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
 
-        //Se instacia la clase conexion de la caperta BD para luego llamar el metodo Conexion() que permite hacer la conexion la BD.
-        Conexion conectado = new Conexion();
-        //Se instacia el objeto conect simplemente para organizar el codigo mejor y no realizar un codigo tan poco agradable...
-        Connection conect = conectado.Conectar();
-
-        // Se  obtiene los valores de los jtexfield y del comBox
-        String matricula = inputId.getText();
-        String nombres = inputNombre.getText();
-        String apellidos = inputApellido.getText();
-        String edadstr = inputEdad.getText();
-        int idCurso = BuscarIdCursoSelecionado();
-
-        // Se verifica si estan vacios los JtextField sino se cumple no se ejucuta el demas codigo...
-        if (matricula.isEmpty() || nombres.isEmpty() || apellidos.isEmpty() || edadstr.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "IDIOTA TODOS LOS CAMPOS DEBEN SER LLENADOS");
-
-        } else {
-
-            try {
-                //Se convierte a enteros los valores y luego se hace el insert en caso de que error la conversion de datos o el insert se maneja los errores en los catch
-                int edad = Integer.parseInt(edadstr);
-
-                Statement statement = conect.createStatement();
-
-                statement.executeUpdate("INSERT INTO Estudiantes(matricula_estu,nombre,apellido,edad,id_curso) values('" + matricula + "','" + nombres + "','" + apellidos + "','" + edad + "','" + idCurso + "')");
-
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Edad e Id del Curso deben ser números válidos", "Error", JOptionPane.ERROR_MESSAGE);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-
-            }
-
-        }
+        agregarEstudiante();
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void inputEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputEdadActionPerformed
@@ -412,9 +465,11 @@ public class AgregarEstudiante extends javax.swing.JFrame {
     public javax.swing.JComboBox<String> cmbCursos;
     private rojeru_san.rsfield.RSTextFullRound inputApellido;
     private rojeru_san.rsfield.RSTextFullRound inputEdad;
+    private rojeru_san.rsdate.RSDateChooser inputFecha;
     private rojeru_san.rsfield.RSTextFullRound inputId;
     private rojeru_san.rsfield.RSTextFullRound inputNombre;
     private javax.swing.JLabel lblApellido;
+    private javax.swing.JLabel lblApellido1;
     private javax.swing.JLabel lblCurso;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblTitulo;
