@@ -6,15 +6,45 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.SQLException;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Administracion {
 
+    Connection conectado;
+    
     private int counter = -1;
     public String mastricula;
     AgregarEstudiante agregar = new AgregarEstudiante();
-
+    
+   
+    public void CrearUsuario(String matricula)
+    {
+        Conexion conexion= new Conexion();
+        Connection conectado=conexion.Conectar();
+        
+        String usuario=matricula;
+        String password=matricula;
+        String rol="Estudiante";
+        String Query="INSERT INTO Usuarios(usu,passw,rol) VALUES('"+usuario+"','"+password+"','"+rol+"')";
+        String Query2="SELECT id_usu FROM Usuarios WHERE usu='"+matricula+"' ";
+        
+        try{
+            Statement statement=conectado.createStatement();
+            statement.executeUpdate(Query);
+            
+        }
+        catch(SQLException ex)
+        {
+            
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+        
+    }
     private static int obtenerUltimoContador(String tabla, String campo) {
 
         int ultimoContador = -1;
@@ -40,7 +70,9 @@ public class Administracion {
         return ultimoContador;
     }
 
-    public String GenerarMatricula(String tabla, String campo) {
+    public String GenerarMatricula(String tabla, String campo) 
+
+    {
 
         if (counter == -1) {
             counter = obtenerUltimoContador(tabla, campo) + 1;
@@ -55,4 +87,9 @@ public class Administracion {
         counter++;
         return mastricula;
     }
+    public static void main(String[]args)
+    {
+       Administracion admin= new Administracion();
+       admin.CrearUsuario("2020-1756");
+    } 
 }

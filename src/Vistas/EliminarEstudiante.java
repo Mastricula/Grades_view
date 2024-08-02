@@ -23,34 +23,34 @@ public class EliminarEstudiante extends javax.swing.JFrame {
         int Curso=0;
        
         
-        if(inputCurso.getText().equals("1ro de Bachillerato"))
+        if(inputCurso.getText().equals("1ro de Secundaria"))
         {
-          Curso=200;
+          Curso=1;
           return Curso;
         }
-        else if(inputCurso.getText().equals("2do de Bachillerato"))
+        else if(inputCurso.getText().equals("2do de Secundaria"))
         {
-            Curso=201;
+            Curso=2;
             return Curso;
         }
-        else if(inputCurso.getText().equals("3ro de Bachillerato"))
+        else if(inputCurso.getText().equals("3ro de Secundaria"))
         {
-            Curso=202;
+            Curso=3;
             return Curso;
         }
-        else if(inputCurso.getText().equals("4to de Bachillerato"))
+        else if(inputCurso.getText().equals("4to de Secundaria"))
         {
-            Curso=203;
+            Curso=4;
             return Curso;
         }
-        else if(inputCurso.getText().equals("5to de Bachillerato"))
+        else if(inputCurso.getText().equals("5to de Secundaria"))
         {
-            Curso=204;
+            Curso=5;
             return Curso;
         }
-        else if(inputCurso.getText().equals("6to de Bachillerato"))
+        else if(inputCurso.getText().equals("6to de Secundaria"))
         {
-            Curso=205;
+            Curso=6;
             return Curso;
         }
      
@@ -64,7 +64,7 @@ public class EliminarEstudiante extends javax.swing.JFrame {
       String matricula=inputMatricula.getText();
       String nombre= inputNombre.getText();
       String apellido=inputApellido.getText();
-      int edad=Integer.parseInt(inputEdad.getText());
+      String fechaDeNacimiento=inputEdad.getText();
       int idCurso=BuscarCurso();
       int idEstudiante=-1;
       
@@ -73,7 +73,9 @@ public class EliminarEstudiante extends javax.swing.JFrame {
       try
       {
           Statement statement= conectado.createStatement();
-          statement.executeUpdate("UPDATE Estudiantes SET nombre='"+nombre+"', apellido='"+apellido+"', edad='"+edad+"',id_curso='"+idCurso+"' WHERE matricula='"+matricula+"'");
+          
+          System.out.println(idCurso);
+          statement.executeUpdate("UPDATE Estudiantes SET nombre='"+nombre+"', apellido='"+apellido+"', fecha_nacimiento='"+fechaDeNacimiento+"',id_curso="+idCurso+" WHERE matricula='"+matricula+"'");
           
             
       }
@@ -98,16 +100,17 @@ public class EliminarEstudiante extends javax.swing.JFrame {
           inputApellido.setEnabled(false);
           inputEdad.setEnabled(false);
           inputCurso.setEnabled(false);
+          btnEliminar.setEnabled(true);
           
         }
         else
         {
             btnEditar.setEnabled(true);
-            
             inputNombre.setEnabled(true);
             inputApellido.setEnabled(true);
             inputEdad.setEnabled(true);
             inputCurso.setEnabled(true);
+            btnEliminar.setEnabled(false);
          
             
         }
@@ -178,6 +181,7 @@ public class EliminarEstudiante extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        comboBoxEstudiantes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir" }));
         comboBoxEstudiantes.setToolTipText("Selecionar Estudiante");
         comboBoxEstudiantes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
