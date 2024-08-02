@@ -17,15 +17,15 @@ public class Login extends javax.swing.JFrame {
     int mouseX;
     int mouseY;
     public String nombreUsu;
-    Administracion admin = new Administracion();
-
+    
     public Login() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/IMG/IconoProye.png")).getImage()); //Poniendo icono
         setBackground(new Color(0, 0, 0, 0));//La ventana sera trasparente
         setLocationRelativeTo(null); // La ventana saldrá en el centro
         inputPass.setEchoChar('•'); //Estableciendo el caracter de la contraseña
-        setExtendedState(NORMAL); //Estado de la ventana
+        setExtendedState(NORMAL); 
+//Estado de la ventana
     }
 
     @SuppressWarnings("unchecked")
@@ -267,7 +267,9 @@ public class Login extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "El usuario ingresado es el admin");
                         System.out.println(rol);
                     } else {
+                        Administracion admin = new Administracion();
                         MainScreen screen = new MainScreen();
+                        
                         screen.btnPerfil.setText(admin.DatosUsuarios(usu));
                         this.dispose();
                         screen.setVisible(true);

@@ -23,34 +23,34 @@ public class EliminarEstudiante extends javax.swing.JFrame {
         int Curso=0;
        
         
-        if(inputCurso.getText().equals("1ro de Bachillerato"))
+        if(inputCurso.getText().equals("1ro de Secundaria"))
         {
-          Curso=200;
+          Curso=1;
           return Curso;
         }
-        else if(inputCurso.getText().equals("2do de Bachillerato"))
+        else if(inputCurso.getText().equals("2do de Secundaria"))
         {
-            Curso=201;
+            Curso=2;
             return Curso;
         }
-        else if(inputCurso.getText().equals("3ro de Bachillerato"))
+        else if(inputCurso.getText().equals("3ro de Secundaria"))
         {
-            Curso=202;
+            Curso=3;
             return Curso;
         }
-        else if(inputCurso.getText().equals("4to de Bachillerato"))
+        else if(inputCurso.getText().equals("4to de Secundaria"))
         {
-            Curso=203;
+            Curso=4;
             return Curso;
         }
-        else if(inputCurso.getText().equals("5to de Bachillerato"))
+        else if(inputCurso.getText().equals("5to de Secundaria"))
         {
-            Curso=204;
+            Curso=5;
             return Curso;
         }
-        else if(inputCurso.getText().equals("6to de Bachillerato"))
+        else if(inputCurso.getText().equals("6to de Secundaria"))
         {
-            Curso=205;
+            Curso=6;
             return Curso;
         }
      
@@ -64,36 +64,18 @@ public class EliminarEstudiante extends javax.swing.JFrame {
       String matricula=inputMatricula.getText();
       String nombre= inputNombre.getText();
       String apellido=inputApellido.getText();
-      int edad=Integer.parseInt(inputEdad.getText());
+      String fechaDeNacimiento=inputEdad.getText();
       int idCurso=BuscarCurso();
       int idEstudiante=-1;
-      System.out.println(matricula);
-      System.out.println(nombre);
-      System.out.println(apellido);
-      System.out.println(edad);
-      System.out.println(idCurso);
+      
       
           
       try
       {
           Statement statement= conectado.createStatement();
-          statement.executeUpdate("UPDATE Estudiantes SET nombre='"+nombre+"', apellido='"+apellido+"', edad='"+edad+"',id_curso='"+idCurso+"' WHERE matricula_estu='"+matricula+"'");
-          //ResultSet resultado= statement.executeQuery("SELECT*FROM Estudiantes WHERE matricula_estu='"+matricula+"'and nombre='"+nombre+"'");
           
-          /*if(resultado.next())
-          {
-            idEstudiante=resultado.getInt("id_estu");
-            System.out.println(idEstudiante);
-          }
-          
-          if(idEstudiante!=-1)
-          {
-            statement.executeUpdate("UPDATE Estudiantes SET matricula_estu='"+matricula+"', nombre='"+nombre+"', apellido='"+apellido+"', edad='"+edad+"',id_curso='"+idCurso+"' WHERE id_estu="+idEstudiante);
-          }
-          System.out.println(idEstudiante);
-          
-          conectado.close();
-        */
+          System.out.println(idCurso);
+          statement.executeUpdate("UPDATE Estudiantes SET nombre='"+nombre+"', apellido='"+apellido+"', fecha_nacimiento='"+fechaDeNacimiento+"',id_curso="+idCurso+" WHERE matricula='"+matricula+"'");
           
             
       }
@@ -103,6 +85,7 @@ public class EliminarEstudiante extends javax.swing.JFrame {
       {
         Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);  
       }
+      MostrarEstudiantesComboBox();
        
       
     }
@@ -117,17 +100,17 @@ public class EliminarEstudiante extends javax.swing.JFrame {
           inputApellido.setEnabled(false);
           inputEdad.setEnabled(false);
           inputCurso.setEnabled(false);
+          btnEliminar.setEnabled(true);
           
         }
         else
         {
             btnEditar.setEnabled(true);
-            
-            inputMatricula.setEnabled(true);
             inputNombre.setEnabled(true);
             inputApellido.setEnabled(true);
             inputEdad.setEnabled(true);
             inputCurso.setEnabled(true);
+            btnEliminar.setEnabled(false);
          
             
         }
@@ -141,11 +124,11 @@ public class EliminarEstudiante extends javax.swing.JFrame {
         try
         {
             Statement statement=conectado.createStatement();
-            ResultSet resultset=statement.executeQuery("SELECT matricula_estu, nombre, apellido FROM Estudiantes");
+            ResultSet resultset=statement.executeQuery("SELECT matricula, nombre, apellido FROM Estudiantes");
             comboBoxEstudiantes.removeAllItems();
             while(resultset.next())
             {
-                String matricula=resultset.getString("matricula_estu");
+                String matricula=resultset.getString("matricula");
                 String nombre=resultset.getString("nombre");
                 String apellido= resultset.getString("apellido");
                 String MatriculaNombre= matricula+"  "+nombre+"  "+apellido; 
@@ -198,6 +181,7 @@ public class EliminarEstudiante extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        comboBoxEstudiantes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir" }));
         comboBoxEstudiantes.setToolTipText("Selecionar Estudiante");
         comboBoxEstudiantes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -378,7 +362,7 @@ public class EliminarEstudiante extends javax.swing.JFrame {
         
         String nombres;
         String apellidos;
-        String edad;
+        String fechaDeNacimiento;
         String curso;
         String matricula=matriculaEstudianteSeleccionado;
        
@@ -386,12 +370,12 @@ public class EliminarEstudiante extends javax.swing.JFrame {
         try
         {
             Statement statement= conectado.createStatement();
-            ResultSet resultado= statement.executeQuery("SELECT*FROM Estudiantes JOIN Cursos on Estudiantes.id_curso= Cursos.id_curso WHERE matricula_estu='"+matriculaEstudianteSeleccionado+"'");
+            ResultSet resultado= statement.executeQuery("SELECT*FROM Estudiantes JOIN Cursos on Estudiantes.id_curso= Cursos.id_curso WHERE matricula='"+matriculaEstudianteSeleccionado+"'");
             while(resultado.next())
             {
                 nombres=resultado.getString("nombre");
                 apellidos=resultado.getString("apellido");
-                edad=resultado.getString("edad");
+                fechaDeNacimiento=resultado.getString("fecha_nacimiento");
                 curso=resultado.getString("curso");
                 
                 
@@ -400,7 +384,7 @@ public class EliminarEstudiante extends javax.swing.JFrame {
                 inputMatricula.setText(matricula);
                 inputNombre.setText(nombres);
                 inputApellido.setText(apellidos);
-                inputEdad.setText(edad);
+                inputEdad.setText(fechaDeNacimiento);
                 inputCurso.setText(curso);
                 
                 
@@ -433,7 +417,7 @@ public class EliminarEstudiante extends javax.swing.JFrame {
             try
             {
                 Statement statement= conectado.createStatement();
-                ResultSet resultado= statement.executeQuery("SELECT*FROM Estudiantes WHERE matricula_estu='"+matricula+"'");
+                ResultSet resultado= statement.executeQuery("SELECT*FROM Estudiantes WHERE matricula='"+matricula+"'");
             
                 while(resultado.next())
                 {

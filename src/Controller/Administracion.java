@@ -6,15 +6,40 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Administracion {
-
+    
+    Conexion conexion = new Conexion();
+    Connection conn = conexion.Conectar();
+    
     private int counter = -1;
     public String mastricula;
     public String nombreUsu;
 
-    private static int ObtenerUltimoContador(String tabla, String campo) {
+    
+    public void CrearUsuario(String matricula)
+    {
+        String usuario = matricula;
+        String password = matricula;
+        String rol = "Estudiante";
+        String Query = "INSERT INTO Usuarios(usu,passw,rol) VALUES('"+ usuario +"','"+ password +"','"+ rol +"')";
+        String Query2 = "SELECT id_usu FROM Usuarios WHERE usu='"+ matricula +"' ";
+        
+        try{
+            Statement statement=conn.createStatement();
+            statement.executeUpdate(Query);
+            
+        }
+        catch(SQLException ex)
+        {
+            System.out.println("Soy de la ventana Admin\n" + ex);
+        }
 
+    }
+    
+    private static int ObtenerUltimoContador(String tabla, String campo) {
         int ultimoContador = -1;
         String query = "SELECT matricula FROM " + tabla + " ORDER BY " + campo + " DESC LIMIT 1";
 
@@ -38,7 +63,9 @@ public class Administracion {
         return ultimoContador;
     }
 
-    public String GenerarMatricula(String tabla, String campo) {
+    public String GenerarMatricula(String tabla, String campo) 
+
+    {
 
         if (counter == -1) {
             counter = ObtenerUltimoContador(tabla, campo) + 1;
@@ -54,14 +81,12 @@ public class Administracion {
         return mastricula;
     }
 
-    public String DatosUsuarios(int usu) {
-        
-        Conexion conectado = new Conexion();
-        Connection con = conectado.Conectar();
 
+    public String DatosUsuarios(int usu) {
+  
         try {
             Statement statement;
-            statement = con.createStatement();
+            statement = conn.createStatement();
             String query = "SELECT nombre, apellido FROM estudiantes WHERE id_usu = " + usu + "";
 
             ResultSet resultset = statement.executeQuery(query);
@@ -79,5 +104,10 @@ public class Administracion {
         return nombreUsu;
     }
     
-
+    public static void main(String[]args)
+    {
+       /*Administracion admin= new Administracion();
+       admin.DatosUsuarios(10);
+       admin.CrearUsuario("2020-1756");*/
+    } 
 }

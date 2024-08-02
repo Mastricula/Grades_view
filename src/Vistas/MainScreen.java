@@ -3,6 +3,8 @@ package Vistas;
 import Controller.*;
 import java.awt.*;
 import javax.swing.ImageIcon;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class MainScreen extends javax.swing.JFrame {
 
@@ -15,21 +17,51 @@ public class MainScreen extends javax.swing.JFrame {
     int num2 = 100;
     int pro = (num + num2) / 2;
     Conexion cx = new Conexion();
+    
+    private void Resolucion(){
+        // Obtiene el entorno gráfico
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        // Obtiene el dispositivo gráfico principal (la pantalla principal)
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        // Obtiene la configuración de la pantalla
+        DisplayMode dm = gd.getDisplayMode();
 
+        // Obtiene el ancho y el alto de la pantalla
+        int width = dm.getWidth();
+        int height = dm.getHeight();
+        String rs = width + "-" + height;
+        System.out.println(rs);
+    }
+
+    private void AjustarVentana() {
+        // Obtiene la resolución de la pantalla
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
+        // Calcula el tamaño deseado de la ventana como un porcentaje de la pantalla
+        int windowWidth = (int) (screenWidth * 0.8); // 80% del ancho de la pantalla
+        int windowHeight = (int) (screenHeight * 0.8); // 80% de la altura de la pantalla
+
+        // Establece el tamaño de la ventana
+        this.setSize(windowWidth, windowHeight);
+
+        // Centra la ventana en la pantalla
+        this.setLocationRelativeTo(null);
+    }
+    
     public MainScreen() {
         initComponents();
-        setIconImage(new ImageIcon(getClass().getResource("/IMG/IconoSplash.png")).getImage());
         setLocationRelativeTo(null);
         EstadoMenuAgregar(false);
         EstadoMenuModificar(false);
         AnimacionPromedio();
-
+        
         jTable1.getTableHeader().setOpaque(false);
         jTable1.getTableHeader().setBackground(new Color(0x00ADB5));
         jTable1.getTableHeader().setForeground(new Color(0xFFFFFF));
         jTable1.getTableHeader().setFont(new Font("Poppins Medium", Font.PLAIN, 14));
         jTable1.setRowHeight(25);
-
     }
 
     private void AnimacionPromedio() {
@@ -92,9 +124,9 @@ public class MainScreen extends javax.swing.JFrame {
         lblProgresoP = new javax.swing.JLabel();
         lblSubP = new javax.swing.JLabel();
         pnlPromedioC = new LIB.JPanelRound();
-        prgPromedioFinal = new rojeru_san.rsprogress.RSProgressCircleAnimated();
         lblProgresoC = new javax.swing.JLabel();
         lblSubC = new javax.swing.JLabel();
+        prgPromedio1 = new rojeru_san.rsprogress.RSProgressCircleAnimated();
         jPanelRound1 = new LIB.JPanelRound();
         jPanelRound2 = new LIB.JPanelRound();
         pnlMenu = new rojeru_san.rspanel.RSPanelGradiente();
@@ -180,14 +212,14 @@ public class MainScreen extends javax.swing.JFrame {
             pnlNotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlNotaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         pnlNotaLayout.setVerticalGroup(
             pnlNotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNotaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -215,37 +247,30 @@ public class MainScreen extends javax.swing.JFrame {
         pnlPromedioPLayout.setHorizontalGroup(
             pnlPromedioPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPromedioPLayout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
-                .addGroup(pnlPromedioPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(31, 31, 31)
+                .addGroup(pnlPromedioPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblProgresoP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblSubP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(53, 53, 53)
-                .addComponent(prgPromedio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
+                .addGap(54, 54, 54)
+                .addComponent(prgPromedio, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                .addGap(41, 41, 41))
         );
         pnlPromedioPLayout.setVerticalGroup(
             pnlPromedioPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPromedioPLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(lblProgresoP, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblProgresoP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
-                .addComponent(lblSubP, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPromedioPLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(prgPromedio, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(lblSubP, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addGap(91, 91, 91))
+            .addGroup(pnlPromedioPLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(prgPromedio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
 
         pnlPromedioC.setBackground(new java.awt.Color(238, 238, 238));
         pnlPromedioC.setOpaque(true);
-
-        prgPromedioFinal.setForeground(new java.awt.Color(0, 173, 181));
-        prgPromedioFinal.setValue(50);
-        prgPromedioFinal.setAnimated(false);
-        prgPromedioFinal.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        prgPromedioFinal.setName(""); // NOI18N
-        prgPromedioFinal.setString("90");
 
         lblProgresoC.setFont(new java.awt.Font("Poppins Medium", 0, 24)); // NOI18N
         lblProgresoC.setForeground(new java.awt.Color(51, 51, 51));
@@ -256,31 +281,39 @@ public class MainScreen extends javax.swing.JFrame {
         lblSubC.setText("Periodo anterior");
         lblSubC.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
+        prgPromedio1.setForeground(new java.awt.Color(0, 173, 181));
+        prgPromedio1.setAnimated(false);
+        prgPromedio1.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        prgPromedio1.setName(""); // NOI18N
+        prgPromedio1.setString("90");
+
         javax.swing.GroupLayout pnlPromedioCLayout = new javax.swing.GroupLayout(pnlPromedioC);
         pnlPromedioC.setLayout(pnlPromedioCLayout);
         pnlPromedioCLayout.setHorizontalGroup(
             pnlPromedioCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPromedioCLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(pnlPromedioCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlPromedioCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblProgresoC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblSubC, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addComponent(prgPromedioFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
+                    .addGroup(pnlPromedioCLayout.createSequentialGroup()
+                        .addComponent(lblSubC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(10, 10, 10)))
+                .addGap(50, 50, 50)
+                .addComponent(prgPromedio1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(41, 41, 41))
         );
         pnlPromedioCLayout.setVerticalGroup(
             pnlPromedioCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPromedioCLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(lblProgresoC, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblProgresoC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
-                .addComponent(lblSubC, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblSubC, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addGap(91, 91, 91))
             .addGroup(pnlPromedioCLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(prgPromedioFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(20, 20, 20)
+                .addComponent(prgPromedio1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
 
         jPanelRound1.setBackground(new java.awt.Color(238, 238, 238));
@@ -290,7 +323,7 @@ public class MainScreen extends javax.swing.JFrame {
         jPanelRound1.setLayout(jPanelRound1Layout);
         jPanelRound1Layout.setHorizontalGroup(
             jPanelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 555, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanelRound1Layout.setVerticalGroup(
             jPanelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,11 +338,11 @@ public class MainScreen extends javax.swing.JFrame {
         jPanelRound2.setLayout(jPanelRound2Layout);
         jPanelRound2Layout.setHorizontalGroup(
             jPanelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 534, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanelRound2Layout.setVerticalGroup(
             jPanelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 166, Short.MAX_VALUE)
+            .addGap(0, 168, Short.MAX_VALUE)
         );
 
         pantalla.setLayer(pnlNota, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -323,31 +356,32 @@ public class MainScreen extends javax.swing.JFrame {
         pantallaLayout.setHorizontalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pantallaLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
                 .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlNota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pantallaLayout.createSequentialGroup()
-                        .addComponent(pnlPromedioP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pnlPromedioC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanelRound2, javax.swing.GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
+                        .addGap(11, 11, 11))
                     .addGroup(pantallaLayout.createSequentialGroup()
-                        .addComponent(jPanelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addComponent(pnlPromedioP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(20, 20, 20)
+                        .addComponent(pnlPromedioC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(20, 20, 20))
         );
         pantallaLayout.setVerticalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pantallaLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlPromedioP, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlPromedioP, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
                     .addComponent(pnlPromedioC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(20, 20, 20)
-                .addComponent(pnlNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlNota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(20, 20, 20)
-                .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanelRound2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelRound2, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                     .addComponent(jPanelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(25, 25, 25))
         );
@@ -511,7 +545,7 @@ public class MainScreen extends javax.swing.JFrame {
                         .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlMenuLayout.createSequentialGroup()
                                 .addGap(22, 22, 22)
-                                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(btnMaterias, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                     .addComponent(btnAgregar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                     .addComponent(btnPublicar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -527,7 +561,7 @@ public class MainScreen extends javax.swing.JFrame {
                                         .addComponent(btnAgProf, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                                         .addComponent(btnAgMat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
                                     .addComponent(btnAgEst, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 22, Short.MAX_VALUE)))
+                        .addGap(22, 22, 22)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlMenuLayout.createSequentialGroup()
                 .addGap(54, 54, 54)
@@ -568,7 +602,7 @@ public class MainScreen extends javax.swing.JFrame {
                 .addComponent(btnMoMat, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnModificar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
                 .addComponent(lblGif, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -668,7 +702,7 @@ public class MainScreen extends javax.swing.JFrame {
             .addComponent(pnlMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnlBaseLayout.createSequentialGroup()
                 .addComponent(pnlBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(pantalla))
         );
 
@@ -836,6 +870,6 @@ public class MainScreen extends javax.swing.JFrame {
     private LIB.JPanelRound pnlPromedioC;
     private LIB.JPanelRound pnlPromedioP;
     private rojeru_san.rsprogress.RSProgressCircleAnimated prgPromedio;
-    private rojeru_san.rsprogress.RSProgressCircleAnimated prgPromedioFinal;
+    private rojeru_san.rsprogress.RSProgressCircleAnimated prgPromedio1;
     // End of variables declaration//GEN-END:variables
 }
