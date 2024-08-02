@@ -1,5 +1,6 @@
 package Vistas;
 
+import Controller.Administracion;
 import java.awt.*;
 import Controller.Conexion;
 import java.sql.Connection;
@@ -15,7 +16,9 @@ public class Login extends javax.swing.JFrame {
 
     int mouseX;
     int mouseY;
-        
+    public String nombreUsu;
+    Administracion admin = new Administracion();
+
     public Login() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/IMG/IconoProye.png")).getImage()); //Poniendo icono
@@ -239,7 +242,6 @@ public class Login extends javax.swing.JFrame {
         String textoUsu = inputUsu.getText();
         String textoPass = inputPass.getText();
 
-        
         if (textoUsu.equals("") || textoPass.equals("")) {
 
             JOptionPane.showMessageDialog(this, "Los campos estan vacios", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -257,14 +259,16 @@ public class Login extends javax.swing.JFrame {
 
                 //Comprobamos el reusltatdo
                 if (resultset.next()) {
+
                     String rol = resultset.getString("Rol");
+                    int usu = resultset.getInt("id_usu");
 
                     if ("admin".equals(rol)) {
                         JOptionPane.showMessageDialog(this, "El usuario ingresado es el admin");
                         System.out.println(rol);
                     } else {
-                        
                         MainScreen screen = new MainScreen();
+                        screen.btnPerfil.setText(admin.DatosUsuarios(usu));
                         this.dispose();
                         screen.setVisible(true);
 

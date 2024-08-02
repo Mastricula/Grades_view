@@ -73,13 +73,10 @@ public final class Splash extends javax.swing.JFrame {
             Thread.sleep(1000);
             spla.lblTexto.setText("CARGANDO DATOS...");
             Thread.sleep(1000);
-            spla.lblIMG.setIcon(new ImageIcon("src/IMG/ImgSplash2.png"));
-            Thread.sleep(1000);
             spla.lblTexto.setText("ABRIENDO...");
             Thread.sleep(1000);
             spla.dispose(); //Solo cerra esta venatan
             Login login = new Login();
-            
             login.setVisible(true);
             
         } catch (InterruptedException ex) {

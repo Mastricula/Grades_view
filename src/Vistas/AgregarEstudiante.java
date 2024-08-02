@@ -16,7 +16,6 @@ public class AgregarEstudiante extends javax.swing.JFrame {
     int mouseY;
 
     public AgregarEstudiante() {
-
         initComponents();
         agregarDatosAlCombobox();
         setLocationRelativeTo(null);

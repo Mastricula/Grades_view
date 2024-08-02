@@ -1,21 +1,19 @@
 package Controller;
 
-import Vistas.*;
 import java.time.LocalDate;
-import java.sql.Statement;
-import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 public class Administracion {
 
     private int counter = -1;
     public String mastricula;
-    AgregarEstudiante agregar = new AgregarEstudiante();
+    public String nombreUsu;
 
-    private static int obtenerUltimoContador(String tabla, String campo) {
+    private static int ObtenerUltimoContador(String tabla, String campo) {
 
         int ultimoContador = -1;
         String query = "SELECT matricula FROM " + tabla + " ORDER BY " + campo + " DESC LIMIT 1";
@@ -34,7 +32,7 @@ public class Administracion {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e);
         }
 
         return ultimoContador;
@@ -43,7 +41,7 @@ public class Administracion {
     public String GenerarMatricula(String tabla, String campo) {
 
         if (counter == -1) {
-            counter = obtenerUltimoContador(tabla, campo) + 1;
+            counter = ObtenerUltimoContador(tabla, campo) + 1;
         }
 
         LocalDate fecha = LocalDate.now();
@@ -55,4 +53,31 @@ public class Administracion {
         counter++;
         return mastricula;
     }
+
+    public String DatosUsuarios(int usu) {
+        
+        Conexion conectado = new Conexion();
+        Connection con = conectado.Conectar();
+
+        try {
+            Statement statement;
+            statement = con.createStatement();
+            String query = "SELECT nombre, apellido FROM estudiantes WHERE id_usu = " + usu + "";
+
+            ResultSet resultset = statement.executeQuery(query);
+
+            if (resultset.next()) {
+                String nombre = resultset.getString("nombre");
+                String apellido = resultset.getString("apellido");
+                nombreUsu = nombre + " " + apellido;
+                //System.out.println(nombreUsu);
+                
+            }
+        } catch (SQLException e){
+            
+        }
+        return nombreUsu;
+    }
+    
+
 }
