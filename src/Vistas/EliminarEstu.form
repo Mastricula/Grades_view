@@ -25,17 +25,17 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="inputEdad1" min="-2" max="-2" attributes="0"/>
-                          <Component id="inputNombre1" min="-2" max="-2" attributes="0"/>
-                          <Component id="inputMatricula1" min="-2" pref="242" max="-2" attributes="0"/>
-                          <Component id="inputCurso1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="inputApellido1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="inputEdad" min="-2" max="-2" attributes="0"/>
+                          <Component id="inputNombre" min="-2" max="-2" attributes="0"/>
+                          <Component id="inputMatricula" min="-2" pref="242" max="-2" attributes="0"/>
+                          <Component id="inputCurso" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="inputApellido" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="btnEditar1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnEditar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnEliminar1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
@@ -50,12 +50,8 @@
                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
-                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="152" max="-2" attributes="0"/>
-                      <Component id="checkBoxEditar1" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkBoxEditar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
@@ -66,10 +62,15 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
-                      <Component id="comboBoxEstudiantes1" min="-2" pref="214" max="-2" attributes="0"/>
+                      <Component id="comboBoxEstudiantes" min="-2" pref="214" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="22" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -79,33 +80,33 @@
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="comboBoxEstudiantes1" min="-2" max="-2" attributes="0"/>
+              <Component id="comboBoxEstudiantes" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="inputMatricula1" min="-2" max="-2" attributes="0"/>
+              <Component id="inputMatricula" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-              <Component id="inputNombre1" min="-2" max="-2" attributes="0"/>
+              <Component id="inputNombre" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="inputApellido1" min="-2" max="-2" attributes="0"/>
+              <Component id="inputApellido" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="inputEdad1" min="-2" max="-2" attributes="0"/>
+              <Component id="inputEdad" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="inputCurso1" min="-2" max="-2" attributes="0"/>
+              <Component id="inputCurso" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="35" max="32767" attributes="0"/>
-              <Component id="checkBoxEditar1" min="-2" max="-2" attributes="0"/>
+              <Component id="checkBoxEditar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnEliminar1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnEditar1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnEditar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
           </Group>
@@ -113,7 +114,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JComboBox" name="comboBoxEstudiantes1">
+    <Component class="javax.swing.JComboBox" name="comboBoxEstudiantes">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="1">
@@ -122,6 +123,9 @@
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Selecionar Estudiante"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxEstudiantesActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -129,13 +133,16 @@
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Edad"/>
+        <Property name="text" type="java.lang.String" value="Fecha De Nacimiento"/>
       </Properties>
     </Component>
-    <Component class="rojeru_san.rsbutton.RSButtonRound" name="btnEliminar1">
+    <Component class="rojeru_san.rsbutton.RSButtonRound" name="btnEliminar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Eliminar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
@@ -143,11 +150,14 @@
         <Property name="text" type="java.lang.String" value="Curso"/>
       </Properties>
     </Component>
-    <Component class="rojeru_san.rsbutton.RSButtonRound" name="btnEditar1">
+    <Component class="rojeru_san.rsbutton.RSButtonRound" name="btnEditar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Editar"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
@@ -155,32 +165,35 @@
         <Property name="text" type="java.lang.String" value="Matr&#xed;cula"/>
       </Properties>
     </Component>
-    <Component class="rojeru_san.rsfield.RSTextFullRound" name="inputCurso1">
+    <Component class="rojeru_san.rsfield.RSTextFullRound" name="inputCurso">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="java.awt.Checkbox" name="checkBoxEditar1">
+    <Component class="java.awt.Checkbox" name="checkBoxEditar">
       <Properties>
         <Property name="label" type="java.lang.String" value="  Habilitar Edici&#xf3;n"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="checkBoxEditarMouseClicked"/>
+      </Events>
     </Component>
-    <Component class="rojeru_san.rsfield.RSTextFullRound" name="inputMatricula1">
+    <Component class="rojeru_san.rsfield.RSTextFullRound" name="inputMatricula">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="rojeru_san.rsfield.RSTextFullRound" name="inputNombre1">
+    <Component class="rojeru_san.rsfield.RSTextFullRound" name="inputNombre">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="rojeru_san.rsfield.RSTextFullRound" name="inputApellido1">
+    <Component class="rojeru_san.rsfield.RSTextFullRound" name="inputApellido">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="rojeru_san.rsfield.RSTextFullRound" name="inputEdad1">
+    <Component class="rojeru_san.rsfield.RSTextFullRound" name="inputEdad">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>

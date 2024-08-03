@@ -4,6 +4,15 @@
  */
 package Vistas;
 
+import Controller.Conexion;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author paulo
@@ -16,7 +25,138 @@ public class EliminarEstu extends javax.swing.JInternalFrame {
     public EliminarEstu() {
         initComponents();
     }
+    
+     private int BuscarCurso()
+    {
+        int Curso=0;
+       
+        
+        if(inputCurso.getText().equals("1ro de Secundaria"))
+        {
+          Curso=1;
+          return Curso;
+        }
+        else if(inputCurso.getText().equals("2do de Secundaria"))
+        {
+            Curso=2;
+            return Curso;
+        }
+        else if(inputCurso.getText().equals("3ro de Secundaria"))
+        {
+            Curso=3;
+            return Curso;
+        }
+        else if(inputCurso.getText().equals("4to de Secundaria"))
+        {
+            Curso=4;
+            return Curso;
+        }
+        else if(inputCurso.getText().equals("5to de Secundaria"))
+        {
+            Curso=5;
+            return Curso;
+        }
+        else if(inputCurso.getText().equals("6to de Secundaria"))
+        {
+            Curso=6;
+            return Curso;
+        }
+     
+        return Curso;
+    }
+    private void Editar()
+    {
+     Administrador admin= new Administrador(); 
+        
+      String matricula=inputMatricula.getText();
+      String nombre= inputNombre.getText();
+      String apellido=inputApellido.getText();
+      String fechaDeNacimiento=inputEdad.getText();
+      int idCurso=BuscarCurso();
+      
+      int respuesta =JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres editar los datos de este estudiante '"+matricula + nombre + apellido+"' ", "Seleccione su respuesta", JOptionPane.YES_NO_OPTION);
+      if(respuesta==JOptionPane.YES_NO_OPTION)
+      {
+        admin.Editar(matricula, nombre, apellido, fechaDeNacimiento, idCurso);
+        MostrarEstudiantesComboBox();
+      }
 
+      
+    
+    
+      
+    }
+    
+    private void HabilitarEdicion()
+    {
+        if(checkBoxEditar.getState())
+        {
+          btnEditar.setEnabled(false);
+          inputMatricula.setEnabled(false);
+          inputNombre.setEnabled(false);
+          inputApellido.setEnabled(false);
+          inputEdad.setEnabled(false);
+          inputCurso.setEnabled(false);
+          btnEliminar.setEnabled(true);
+          
+        }
+        else
+        {
+            btnEditar.setEnabled(true);
+            inputNombre.setEnabled(true);
+            inputApellido.setEnabled(true);
+            inputEdad.setEnabled(true);
+            inputCurso.setEnabled(true);
+            btnEliminar.setEnabled(false);
+         
+            
+        }
+    }
+    
+    private void MostrarEstudiantesComboBox()
+    {
+        Connection conectado;
+        Conexion conexion= new Conexion();
+        conectado=conexion.Conectar();
+        
+        try
+        {
+            Statement statement=conectado.createStatement();
+            ResultSet resultset=statement.executeQuery("SELECT matricula, nombre, apellido FROM Estudiantes");
+            comboBoxEstudiantes.removeAllItems();
+            while(resultset.next())
+            {
+                String matricula=resultset.getString("matricula");
+                String nombre=resultset.getString("nombre");
+                String apellido= resultset.getString("apellido");
+                String MatriculaNombre= matricula+"  "+nombre+"  "+apellido; 
+                comboBoxEstudiantes.addItem(MatriculaNombre);
+            
+            }
+            
+        }
+        catch(SQLException ex)
+        {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);  
+        }
+    
+    }
+    
+    private void Eliminar()
+    {
+        Administrador admin= new Administrador();
+        String matriculaNombreApellido= (String)comboBoxEstudiantes.getSelectedItem();
+        String matricula= matriculaNombreApellido.substring(0, 9);
+    
+        
+        
+        int respuesta =JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres eliminar este estudiante '"+matriculaNombreApellido+"' ", "Seleccione su respuesta", JOptionPane.YES_NO_OPTION);
+        if(respuesta==JOptionPane.YES_NO_OPTION)
+        {       
+            admin.Eliminar(matricula);
+            MostrarEstudiantesComboBox();     
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,50 +166,70 @@ public class EliminarEstu extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        comboBoxEstudiantes1 = new javax.swing.JComboBox<>();
+        comboBoxEstudiantes = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        btnEliminar1 = new rojeru_san.rsbutton.RSButtonRound();
+        btnEliminar = new rojeru_san.rsbutton.RSButtonRound();
         jLabel8 = new javax.swing.JLabel();
-        btnEditar1 = new rojeru_san.rsbutton.RSButtonRound();
+        btnEditar = new rojeru_san.rsbutton.RSButtonRound();
         jLabel9 = new javax.swing.JLabel();
-        inputCurso1 = new rojeru_san.rsfield.RSTextFullRound();
-        checkBoxEditar1 = new java.awt.Checkbox();
-        inputMatricula1 = new rojeru_san.rsfield.RSTextFullRound();
-        inputNombre1 = new rojeru_san.rsfield.RSTextFullRound();
-        inputApellido1 = new rojeru_san.rsfield.RSTextFullRound();
-        inputEdad1 = new rojeru_san.rsfield.RSTextFullRound();
+        inputCurso = new rojeru_san.rsfield.RSTextFullRound();
+        checkBoxEditar = new java.awt.Checkbox();
+        inputMatricula = new rojeru_san.rsfield.RSTextFullRound();
+        inputNombre = new rojeru_san.rsfield.RSTextFullRound();
+        inputApellido = new rojeru_san.rsfield.RSTextFullRound();
+        inputEdad = new rojeru_san.rsfield.RSTextFullRound();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
 
-        comboBoxEstudiantes1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir" }));
-        comboBoxEstudiantes1.setToolTipText("Selecionar Estudiante");
+        comboBoxEstudiantes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir" }));
+        comboBoxEstudiantes.setToolTipText("Selecionar Estudiante");
+        comboBoxEstudiantes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxEstudiantesActionPerformed(evt);
+            }
+        });
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Edad");
+        jLabel7.setText("Fecha De Nacimiento");
 
-        btnEliminar1.setText("Eliminar");
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Curso");
 
-        btnEditar1.setText("Editar");
-        btnEditar1.setEnabled(false);
+        btnEditar.setText("Editar");
+        btnEditar.setEnabled(false);
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Matrícula");
 
-        inputCurso1.setEnabled(false);
+        inputCurso.setEnabled(false);
 
-        checkBoxEditar1.setLabel("  Habilitar Edición");
+        checkBoxEditar.setLabel("  Habilitar Edición");
+        checkBoxEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                checkBoxEditarMouseClicked(evt);
+            }
+        });
 
-        inputMatricula1.setEnabled(false);
+        inputMatricula.setEnabled(false);
 
-        inputNombre1.setEnabled(false);
+        inputNombre.setEnabled(false);
 
-        inputApellido1.setEnabled(false);
+        inputApellido.setEnabled(false);
 
-        inputEdad1.setEnabled(false);
+        inputEdad.setEnabled(false);
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Estudiantes");
@@ -90,15 +250,15 @@ public class EliminarEstu extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(inputEdad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputMatricula1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputCurso1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputApellido1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(inputEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnEditar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(192, 192, 192)
                         .addComponent(jLabel8))
@@ -109,11 +269,8 @@ public class EliminarEstu extends javax.swing.JInternalFrame {
                         .addGap(180, 180, 180)
                         .addComponent(jLabel12))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(191, 191, 191)
-                        .addComponent(jLabel7))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(152, 152, 152)
-                        .addComponent(checkBoxEditar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(checkBoxEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(167, 167, 167)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -121,8 +278,12 @@ public class EliminarEstu extends javax.swing.JInternalFrame {
                             .addComponent(jLabel9)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(97, 97, 97)
-                        .addComponent(comboBoxEstudiantes1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(comboBoxEstudiantes, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(22, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addGap(168, 168, 168))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,50 +291,110 @@ public class EliminarEstu extends javax.swing.JInternalFrame {
                 .addGap(27, 27, 27)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboBoxEstudiantes1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboBoxEstudiantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(inputMatricula1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(inputMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel11)
                 .addGap(3, 3, 3)
-                .addComponent(inputNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(inputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(inputApellido1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(inputApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(inputEdad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(inputEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(inputCurso1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(inputCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(checkBoxEditar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(checkBoxEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(63, 63, 63))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void comboBoxEstudiantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxEstudiantesActionPerformed
+        String matriculaNombreApellido2=(String)comboBoxEstudiantes.getSelectedItem();
+        if (matriculaNombreApellido2 == null)
+        {
+        return; 
+        }
+        String matriculaEstudianteSeleccionado=matriculaNombreApellido2.substring(0, 9);
+        Conexion conexion= new Conexion();
+        Connection conectado= conexion.Conectar();
+        
+        String nombres;
+        String apellidos;
+        String fechaDeNacimiento;
+        String curso;
+        String matricula=matriculaEstudianteSeleccionado;
+       
+        
+        try
+        {
+            Statement statement= conectado.createStatement();
+            ResultSet resultado= statement.executeQuery("SELECT*FROM Estudiantes JOIN Cursos on Estudiantes.id_curso= Cursos.id_curso WHERE matricula='"+matriculaEstudianteSeleccionado+"'");
+            while(resultado.next())
+            {
+                nombres=resultado.getString("nombre");
+                apellidos=resultado.getString("apellido");
+                fechaDeNacimiento=resultado.getString("fecha_nacimiento");
+                curso=resultado.getString("curso");
+                
+                
+                
+                
+                inputMatricula.setText(matricula);
+                inputNombre.setText(nombres);
+                inputApellido.setText(apellidos);
+                inputEdad.setText(fechaDeNacimiento);
+                inputCurso.setText(curso);
+                
+                
+                
+            }
+        }
+        catch(SQLException ex)
+        {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }//GEN-LAST:event_comboBoxEstudiantesActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        Editar();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+       Eliminar();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void checkBoxEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkBoxEditarMouseClicked
+        HabilitarEdicion();
+    }//GEN-LAST:event_checkBoxEditarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private rojeru_san.rsbutton.RSButtonRound btnEditar1;
-    private rojeru_san.rsbutton.RSButtonRound btnEliminar1;
-    private java.awt.Checkbox checkBoxEditar1;
-    private javax.swing.JComboBox<String> comboBoxEstudiantes1;
-    private rojeru_san.rsfield.RSTextFullRound inputApellido1;
-    private rojeru_san.rsfield.RSTextFullRound inputCurso1;
-    private rojeru_san.rsfield.RSTextFullRound inputEdad1;
-    private rojeru_san.rsfield.RSTextFullRound inputMatricula1;
-    private rojeru_san.rsfield.RSTextFullRound inputNombre1;
+    private rojeru_san.rsbutton.RSButtonRound btnEditar;
+    private rojeru_san.rsbutton.RSButtonRound btnEliminar;
+    private java.awt.Checkbox checkBoxEditar;
+    private javax.swing.JComboBox<String> comboBoxEstudiantes;
+    private rojeru_san.rsfield.RSTextFullRound inputApellido;
+    private rojeru_san.rsfield.RSTextFullRound inputCurso;
+    private rojeru_san.rsfield.RSTextFullRound inputEdad;
+    private rojeru_san.rsfield.RSTextFullRound inputMatricula;
+    private rojeru_san.rsfield.RSTextFullRound inputNombre;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

@@ -144,7 +144,6 @@ public class Administrador extends Usuario
         
         Conexion conexion= new Conexion();
         Connection conectado= conexion.Conectar();
-        System.out.println(matricula);
         try
         {
             Statement statement= conectado.createStatement();
