@@ -21,7 +21,7 @@ public class MainScreen extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         EstadoMenuAgregar(false);
         EstadoMenuModificar(false);
-        AnimacionPromedio();
+     
     }
 
     private void AnimacionPromedio() {

@@ -26,27 +26,26 @@ public class AgregarEstudiante extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setExtendedState(NORMAL);
     }
-    private String obtenerFecha() {
-    Date fechaSeleccionada = inputFecha.getDatoFecha();
-    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-    return formato.format(fechaSeleccionada);
-}
+    private String obtenerFecha() 
+    {
+        Date fechaSeleccionada = inputFecha.getDatoFecha();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        return formato.format(fechaSeleccionada);
+    }
     private void agregarEstudiante()
     {
         
-        Administracion admin= new Administracion();
+    
+        Administrador admin1= new Administrador();
         
-   
-        Conexion conectado = new Conexion();
-        Connection conect = conectado.Conectar();
-
-        // Se  obtiene los valores de los jtexfield y del comBox
-       
+        
         String nombres = inputNombre.getText();
         String apellidos = inputApellido.getText();
         String fechaNacimiento = obtenerFecha();
+        
         int idCurso = BuscarIdCursoSelecionado();
-        int id_usu=0;
+        System.out.println(idCurso);
+      
         
         
         System.out.println(fechaNacimiento);
@@ -55,37 +54,12 @@ public class AgregarEstudiante extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "SE DEBEN LLENAR TODOS LO CAMPOS REQUERIDOS");
 
         } else {
-            String matricula = admin.GenerarMatricula("Estudiantes", "id_estu");
-            System.out.println(matricula);
-            admin.CrearUsuario(matricula);
-            try {
-               
-
-                Statement statement = conect.createStatement();
-                
-                ResultSet resultado=statement.executeQuery("SELECT id_usu FROM Usuarios WHERE usu='"+matricula+"' ");
-                if(resultado.next())
-                {
-                    id_usu=resultado.getInt("id_usu");
-                }
-                
-                System.out.println(id_usu);
-                System.out.println(idCurso);
-                
-                
-
-                statement.executeUpdate("INSERT INTO Estudiantes(matricula,nombre,apellido,fecha_nacimiento,id_curso,id_usu) values('" + matricula + "','" + nombres + "','" + apellidos + "','" + fechaNacimiento + "', "+ idCurso+", '"+id_usu+"' )");
-
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Edad e Id del Curso deben ser números válidos", "Error", JOptionPane.ERROR_MESSAGE);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-
+            admin1.Agregar(nombres, apellidos, fechaNacimiento, idCurso);
             }
 
         }
-    }                                            
+    
+
     
     
 
@@ -109,7 +83,8 @@ public class AgregarEstudiante extends javax.swing.JFrame {
         }
     }
 
-    private int BuscarIdCursoSelecionado() {
+    private int BuscarIdCursoSelecionado() 
+    {
         int curso = 0;
 
         if (cmbCursos.getSelectedItem().equals("1ro de Secundaria")) {

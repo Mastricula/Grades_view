@@ -58,34 +58,22 @@ public class EliminarEstudiante extends javax.swing.JFrame {
     }
     private void Editar()
     {
-      Conexion conexion= new Conexion();
-      
-      Connection conectado=conexion.Conectar();
+     Administrador admin= new Administrador(); 
+        
       String matricula=inputMatricula.getText();
       String nombre= inputNombre.getText();
       String apellido=inputApellido.getText();
       String fechaDeNacimiento=inputEdad.getText();
       int idCurso=BuscarCurso();
-      int idEstudiante=-1;
       
-      
-          
-      try
+      int respuesta =JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres editar los datos de este estudiante '"+matricula + nombre + apellido+"' ", "Seleccione su respuesta", JOptionPane.YES_NO_OPTION);
+      if(respuesta==JOptionPane.YES_NO_OPTION)
       {
-          Statement statement= conectado.createStatement();
-          
-          System.out.println(idCurso);
-          statement.executeUpdate("UPDATE Estudiantes SET nombre='"+nombre+"', apellido='"+apellido+"', fecha_nacimiento='"+fechaDeNacimiento+"',id_curso="+idCurso+" WHERE matricula='"+matricula+"'");
-          
-            
+        admin.Editar(matricula, nombre, apellido, fechaDeNacimiento, idCurso);
+        MostrarEstudiantesComboBox();
       }
       
       
-      catch(SQLException ex)
-      {
-        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);  
-      }
-      MostrarEstudiantesComboBox();
        
       
     }
@@ -143,7 +131,22 @@ public class EliminarEstudiante extends javax.swing.JFrame {
         }
     
     }
-
+    
+    private void Eliminar()
+    {
+        Administrador admin= new Administrador();
+        String matriculaNombreApellido= (String)comboBoxEstudiantes.getSelectedItem();
+        String matricula= matriculaNombreApellido.substring(0, 9);
+    
+        
+        
+        int respuesta =JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres eliminar este estudiante '"+matriculaNombreApellido+"' ", "Seleccione su respuesta", JOptionPane.YES_NO_OPTION);
+        if(respuesta==JOptionPane.YES_NO_OPTION)
+        {       
+            admin.Eliminar(matricula);
+            MostrarEstudiantesComboBox();     
+        }
+    }
     /**
      * Creates new form EliminarEstudiante
      */
@@ -401,44 +404,7 @@ public class EliminarEstudiante extends javax.swing.JFrame {
     
     
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        
-        
-        String matriculaNombreApellido= (String)comboBoxEstudiantes.getSelectedItem();
-        String matricula= matriculaNombreApellido.substring(0, 9);
-        int id_estu = 0;
-        
-        Conexion conexion= new Conexion();
-        Connection conectado= conexion.Conectar();
-        System.out.println(matricula);
-        
-        int respuesta =JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres eliminar este estudiante '"+matriculaNombreApellido+"' ", "Seleccione su respuesta", JOptionPane.YES_NO_OPTION);
-        if(respuesta==JOptionPane.YES_NO_OPTION)
-        {       
-            try
-            {
-                Statement statement= conectado.createStatement();
-                ResultSet resultado= statement.executeQuery("SELECT*FROM Estudiantes WHERE matricula='"+matricula+"'");
-            
-                while(resultado.next())
-                {
-                    id_estu= resultado.getInt("id_estu");  
-                }
-                statement.executeUpdate("DELETE FROM Estudiantes WHERE id_estu="+id_estu);
-                
-            }
-            catch(SQLException ex)
-            {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-           
-            
-        }
-        else
-        {
-            System.out.println("Le dio a no elminar no bulto");
-        }
-        MostrarEstudiantesComboBox();
+        Eliminar();
         
     }//GEN-LAST:event_btnEliminarActionPerformed
 
