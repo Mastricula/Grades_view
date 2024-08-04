@@ -26,6 +26,7 @@ matricula VARCHAR(25) NOT NULL,
 nombre VARCHAR(20) NOT NULL,
 apellido VARCHAR(20) NOT NULL,
 cedula VARCHAR(11) NOT NULL,
+fecha_nacimiento DATE NOT NULL,
 id_usu INT NOT NULL,
 CONSTRAINT fk_profe_usu FOREIGN KEY (id_usu) REFERENCES usuarios(id_usu)
 );
@@ -66,6 +67,20 @@ CONSTRAINT fk_inter_profe_c FOREIGN KEY (id_profe) REFERENCES profesores(id_prof
 CONSTRAINT fk_inter_curso FOREIGN KEY (id_curso) REFERENCES cursos(id_curso)
 );
 
+CREATE TABLE notas (
+    id_nota INT PRIMARY KEY AUTO_INCREMENT,
+    id_estu INT NOT NULL,
+    id_materia INT NOT NULL,
+    id_profesor INT NOT NULL,
+    nota_P1 INT(3) NOT NULL,
+    nota_P2 INT(3),
+    nota_P3 INT(3),
+    nota_P4 INT(3),
+    fecha_publicacion DATE NOT NULL,
+    CONSTRAINT fk_nota_estu FOREIGN KEY (id_estu) REFERENCES Estudiantes(id_estu),
+    CONSTRAINT fk_nota_materia FOREIGN KEY (id_materia) REFERENCES Materias(id_materia)
+);
+
 SHOW TABLES;
 
 INSERT INTO Usuarios (usu, passw, rol) VALUES ('Admin', 'admin', 'admin');
@@ -104,11 +119,10 @@ INSERT INTO Estudiantes (matricula, nombre, apellido, fecha_nacimiento, id_curso
 
 SELECT * FROM Estudiantes;
 
-INSERT INTO Profesores (matricula, nombre, apellido, cedula, id_usu) VALUES ('P-0000','Freidy', 'Nuñes', '00112345671' , 5);
-INSERT INTO Profesores (matricula, nombre, apellido, cedula, id_usu) VALUES ('P-0001', 'Maribel', 'Rodriguez', '04598765431', 6);
-INSERT INTO Profesores (matricula, nombre, apellido, cedula, id_usu) VALUES ('P-0002', 'Mariela', 'Perdomo', '10145678901', 7);
-INSERT INTO Profesores (matricula, nombre, apellido, cedula, id_usu) VALUES ('P-0001', 'Juan', 'Perez', '05732165491', 8);
-
+INSERT INTO Profesores (matricula, nombre, apellido, cedula, fecha_nacimiento, id_usu) VALUES ('P-0000', 'Freidy', 'Nuñes', '00112345671', '1980-05-20', 5);
+INSERT INTO Profesores (matricula, nombre, apellido, cedula, fecha_nacimiento, id_usu) VALUES ('P-0001', 'Maribel', 'Rodriguez', '04598765431', '1985-11-15', 6);
+INSERT INTO Profesores (matricula, nombre, apellido, cedula, fecha_nacimiento, id_usu) VALUES ('P-0002', 'Mariela', 'Perdomo', '10145678901', '1978-03-10', 7);
+INSERT INTO Profesores (matricula, nombre, apellido, cedula, fecha_nacimiento, id_usu) VALUES ('P-0003', 'Juan', 'Perez', '05732165491', '1982-07-25', 8);
 
 INSERT INTO profe_mate VALUES (1,1);
 INSERT INTO profe_mate VALUES (2,2);
@@ -160,6 +174,25 @@ INSERT INTO curso_mate VALUES (6,2);
 INSERT INTO curso_mate VALUES (6,3);
 INSERT INTO curso_mate VALUES (6,4);
 
+SELECT * FROM curso_mate;
+
+INSERT INTO notas (id_estu, id_materia, id_profesor, nota_P1, nota_P2, nota_P3, nota_P4, fecha_publicacion) VALUES (1, 1, 1, 85, 87, 89, 90, SYSDATE());
+INSERT INTO notas (id_estu, id_materia, id_profesor, nota_P1, nota_P2, nota_P3, nota_P4, fecha_publicacion) VALUES (1, 2, 2, 78, 82, 85, 88, SYSDATE());
+INSERT INTO notas (id_estu, id_materia, id_profesor, nota_P1, nota_P2, nota_P3, nota_P4, fecha_publicacion) VALUES (1, 3, 3, 92, 90, 91, 93, SYSDATE());
+INSERT INTO notas (id_estu, id_materia, id_profesor, nota_P1, nota_P2, nota_P3, nota_P4, fecha_publicacion) VALUES (1, 4, 4, 84, 86, 88, 90, SYSDATE());
+
+INSERT INTO notas (id_estu, id_materia, id_profesor, nota_P1, nota_P2, nota_P3, nota_P4, fecha_publicacion) VALUES (2, 1, 1, 70, 75, 80, 85, SYSDATE());
+INSERT INTO notas (id_estu, id_materia, id_profesor, nota_P1, nota_P2, nota_P3, nota_P4, fecha_publicacion) VALUES (2, 2, 2, 82, 85, 87, 89, SYSDATE());
+INSERT INTO notas (id_estu, id_materia, id_profesor, nota_P1, nota_P2, nota_P3, nota_P4, fecha_publicacion) VALUES (2, 3, 3, 88, 86, 87, 88, SYSDATE());
+INSERT INTO notas (id_estu, id_materia, id_profesor, nota_P1, nota_P2, nota_P3, nota_P4, fecha_publicacion) VALUES (2, 4, 4, 90, 92, 91, 93, SYSDATE());
+
+INSERT INTO notas (id_estu, id_materia, id_profesor, nota_P1, nota_P2, nota_P3, nota_P4, fecha_publicacion) VALUES (3, 1, 1, 88, 87, 86, 85, SYSDATE());
+INSERT INTO notas (id_estu, id_materia, id_profesor, nota_P1, nota_P2, nota_P3, nota_P4, fecha_publicacion) VALUES (3, 2, 2, 78, 79, 80, 81, SYSDATE());
+INSERT INTO notas (id_estu, id_materia, id_profesor, nota_P1, nota_P2, nota_P3, nota_P4, fecha_publicacion) VALUES (3, 3, 3, 92, 91, 90, 89, SYSDATE());
+INSERT INTO notas (id_estu, id_materia, id_profesor, nota_P1, nota_P2, nota_P3, nota_P4, fecha_publicacion) VALUES (3, 4, 4, 84, 85, 86, 87, SYSDATE());
+
+SELECT * FROM notas;
+
 SELECT matricula FROM Estudiantes ORDER BY id_estu DESC LIMIT 1;
 
 desc profe_cursos;
@@ -171,3 +204,4 @@ desc estudiantes;
 SELECT * FROM Profesores;
 SELECT * FROM curso_mate;
 SELECT * FROM Materias;
+SELECT nombre, apellido FROM Estudiantes;

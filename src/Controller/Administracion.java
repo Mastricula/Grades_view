@@ -19,8 +19,7 @@ public class Administracion {
     public String nombreUsu;
 
     
-    public void CrearUsuario(String matricula)
-    {
+    public void CrearUsuario(String matricula){
         String usuario = matricula;
         String password = matricula;
         String rol = "Estudiante";
@@ -63,9 +62,7 @@ public class Administracion {
         return ultimoContador;
     }
 
-    public String GenerarMatricula(String tabla, String campo) 
-
-    {
+    public String GenerarMatricula(String tabla, String campo){
 
         if (counter == -1) {
             counter = ObtenerUltimoContador(tabla, campo) + 1;

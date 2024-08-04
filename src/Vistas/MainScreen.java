@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.ImageIcon;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 
 public class MainScreen extends javax.swing.JFrame {
 
@@ -25,7 +26,6 @@ public class MainScreen extends javax.swing.JFrame {
         GraphicsDevice gd = ge.getDefaultScreenDevice();
         // Obtiene la configuración de la pantalla
         DisplayMode dm = gd.getDisplayMode();
-
         // Obtiene el ancho y el alto de la pantalla
         int width = dm.getWidth();
         int height = dm.getHeight();
@@ -33,7 +33,7 @@ public class MainScreen extends javax.swing.JFrame {
         System.out.println(rs);
     }
 
-    private void AjustarVentana() {
+    public void AjustarVentana() {
         // Obtiene la resolución de la pantalla
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int screenWidth = screenSize.width;
@@ -50,20 +50,6 @@ public class MainScreen extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
-    public MainScreen() {
-        initComponents();
-        setLocationRelativeTo(null);
-        EstadoMenuAgregar(false);
-        EstadoMenuModificar(false);
-        AnimacionPromedio();
-        
-        jTable1.getTableHeader().setOpaque(false);
-        jTable1.getTableHeader().setBackground(new Color(0x00ADB5));
-        jTable1.getTableHeader().setForeground(new Color(0xFFFFFF));
-        jTable1.getTableHeader().setFont(new Font("Poppins Medium", Font.PLAIN, 14));
-        jTable1.setRowHeight(25);
-    }
-
     private void AnimacionPromedio() {
         prgPromedio.setMaximum(100);
 
@@ -110,6 +96,20 @@ public class MainScreen extends javax.swing.JFrame {
         }
     }
     
+    public MainScreen() {
+        initComponents();
+        setLocationRelativeTo(null);
+        EstadoMenuAgregar(false);
+        EstadoMenuModificar(false);
+        //AnimacionPromedio();
+        //AjustarVentana();
+        jTable1.getTableHeader().setOpaque(false);
+        jTable1.getTableHeader().setBackground(new Color(0x00ADB5));
+        jTable1.getTableHeader().setForeground(new Color(0xFFFFFF));
+        jTable1.getTableHeader().setFont(new Font("Poppins Medium", Font.PLAIN, 14));
+        jTable1.setRowHeight(25);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -127,7 +127,6 @@ public class MainScreen extends javax.swing.JFrame {
         lblProgresoC = new javax.swing.JLabel();
         lblSubC = new javax.swing.JLabel();
         prgPromedio1 = new rojeru_san.rsprogress.RSProgressCircleAnimated();
-        jPanelRound1 = new LIB.JPanelRound();
         jPanelRound2 = new LIB.JPanelRound();
         pnlMenu = new rojeru_san.rspanel.RSPanelGradiente();
         lblLogo = new javax.swing.JLabel();
@@ -144,14 +143,14 @@ public class MainScreen extends javax.swing.JFrame {
         btnAgProf = new rojeru_san.rsbutton.RSButtonRoundEffect();
         btnAgMat = new rojeru_san.rsbutton.RSButtonRoundEffect();
         lblGif = new javax.swing.JLabel();
-        btnModificar1 = new rojeru_san.rsbutton.RSButtonRoundEffect();
+        btnSalir = new rojeru_san.rsbutton.RSButtonRoundEffect();
         pnlBarra = new rojeru_san.rspanel.RSPanelGradiente();
         btnCerrar = new rojeru_san.complementos.RSButtonHover();
         btnMax = new rojeru_san.complementos.RSButtonHover();
         btnMin = new rojeru_san.complementos.RSButtonHover();
         btnEstado = new rojeru_san.rsbutton.RSButtonRound();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
         pnlBase.setColorPrimario(new java.awt.Color(182, 223, 225));
@@ -265,7 +264,7 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGap(91, 91, 91))
             .addGroup(pnlPromedioPLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(prgPromedio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(prgPromedio, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
 
@@ -316,20 +315,6 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
-        jPanelRound1.setBackground(new java.awt.Color(238, 238, 238));
-        jPanelRound1.setOpaque(true);
-
-        javax.swing.GroupLayout jPanelRound1Layout = new javax.swing.GroupLayout(jPanelRound1);
-        jPanelRound1.setLayout(jPanelRound1Layout);
-        jPanelRound1Layout.setHorizontalGroup(
-            jPanelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanelRound1Layout.setVerticalGroup(
-            jPanelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         jPanelRound2.setBackground(new java.awt.Color(238, 238, 238));
         jPanelRound2.setOpaque(true);
         jPanelRound2.setPreferredSize(new java.awt.Dimension(534, 166));
@@ -348,23 +333,18 @@ public class MainScreen extends javax.swing.JFrame {
         pantalla.setLayer(pnlNota, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pantalla.setLayer(pnlPromedioP, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pantalla.setLayer(pnlPromedioC, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        pantalla.setLayer(jPanelRound1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pantalla.setLayer(jPanelRound2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout pantallaLayout = new javax.swing.GroupLayout(pantalla);
         pantalla.setLayout(pantallaLayout);
         pantallaLayout.setHorizontalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pantallaLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pantallaLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlNota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pantallaLayout.createSequentialGroup()
-                        .addComponent(jPanelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanelRound2, javax.swing.GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
-                        .addGap(11, 11, 11))
-                    .addGroup(pantallaLayout.createSequentialGroup()
+                .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanelRound2, javax.swing.GroupLayout.DEFAULT_SIZE, 1109, Short.MAX_VALUE)
+                    .addComponent(pnlNota, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pantallaLayout.createSequentialGroup()
                         .addComponent(pnlPromedioP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(20, 20, 20)
                         .addComponent(pnlPromedioC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -380,9 +360,7 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(pnlNota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(20, 20, 20)
-                .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelRound2, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                    .addComponent(jPanelRound1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanelRound2, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                 .addGap(25, 25, 25))
         );
 
@@ -519,16 +497,16 @@ public class MainScreen extends javax.swing.JFrame {
         lblGif.setForeground(new java.awt.Color(238, 238, 238));
         lblGif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Iconos/user.png"))); // NOI18N
 
-        btnModificar1.setBackground(new java.awt.Color(0, 173, 181));
-        btnModificar1.setBorder(null);
-        btnModificar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Iconos/logout.png"))); // NOI18N
-        btnModificar1.setText("Salir");
-        btnModificar1.setColorHover(new java.awt.Color(2, 133, 139));
-        btnModificar1.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
-        btnModificar1.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        btnModificar1.addActionListener(new java.awt.event.ActionListener() {
+        btnSalir.setBackground(new java.awt.Color(0, 173, 181));
+        btnSalir.setBorder(null);
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Iconos/logout.png"))); // NOI18N
+        btnSalir.setText("Salir");
+        btnSalir.setColorHover(new java.awt.Color(2, 133, 139));
+        btnSalir.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
+        btnSalir.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificar1ActionPerformed(evt);
+                btnSalirActionPerformed(evt);
             }
         });
 
@@ -553,7 +531,7 @@ public class MainScreen extends javax.swing.JFrame {
                                     .addComponent(btnPerfil, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                     .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                     .addComponent(lblLogo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                                    .addComponent(btnModificar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                                    .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlMenuLayout.createSequentialGroup()
                                 .addGap(54, 54, 54)
                                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -601,7 +579,7 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addComponent(btnMoMat, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnModificar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
                 .addComponent(lblGif, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -730,6 +708,7 @@ public class MainScreen extends javax.swing.JFrame {
     private void pnlBarraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBarraMousePressed
         mouseX = evt.getX();
         mouseY = evt.getY();
+        setExtendedState(NORMAL);
     }//GEN-LAST:event_pnlBarraMousePressed
 
     private void btnMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinActionPerformed
@@ -780,22 +759,29 @@ public class MainScreen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnAgProfActionPerformed
 
-    private void btnModificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnModificar1ActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        int respuesta = JOptionPane.showConfirmDialog(this, "¿Seguro que desea salir?", "Confirmar accion", JOptionPane.YES_NO_OPTION);
+        if (respuesta == JOptionPane.YES_OPTION){
+            this.dispose();
+            Login log = new Login();
+            log.setVisible(true); 
+        }
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnMoEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoEstActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnMoEstActionPerformed
 
     private void btnEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoActionPerformed
         if (!estado) {
             btnEstado.setIcon(new ImageIcon("src\\IMG\\Iconos\\circleOFF.png"));
             estado = !estado;
+            btnPerfil.setEnabled(false);
             
         } else {
             btnEstado.setIcon(new ImageIcon("src\\IMG\\Iconos\\circleON.png"));
             estado = !estado;
+            btnPerfil.setEnabled(true);
         }
     }//GEN-LAST:event_btnEstadoActionPerformed
 
@@ -848,11 +834,10 @@ public class MainScreen extends javax.swing.JFrame {
     private rojeru_san.rsbutton.RSButtonRoundEffect btnMoMat;
     private rojeru_san.rsbutton.RSButtonRoundEffect btnMoProf;
     private rojeru_san.rsbutton.RSButtonRoundEffect btnModificar;
-    private rojeru_san.rsbutton.RSButtonRoundEffect btnModificar1;
     private rojeru_san.rsbutton.RSButtonRoundEffect btnNotas;
     public rojeru_san.rsbutton.RSButtonRoundEffect btnPerfil;
     private rojeru_san.rsbutton.RSButtonRoundEffect btnPublicar;
-    private LIB.JPanelRound jPanelRound1;
+    private rojeru_san.rsbutton.RSButtonRoundEffect btnSalir;
     private LIB.JPanelRound jPanelRound2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
