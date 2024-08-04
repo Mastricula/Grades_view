@@ -78,7 +78,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jPanelRound2" pref="1109" max="32767" attributes="0"/>
+                          <Component id="jPanelRound2" pref="1127" max="32767" attributes="0"/>
                           <Component id="pnlNota" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="pnlPromedioP" max="32767" attributes="0"/>
@@ -250,7 +250,6 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b5" green="ad" red="0" type="rgb"/>
                     </Property>
-                    <Property name="animated" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="18" style="1"/>
                     </Property>
@@ -355,7 +354,6 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b5" green="ad" red="0" type="rgb"/>
                     </Property>
-                    <Property name="animated" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="18" style="1"/>
                     </Property>

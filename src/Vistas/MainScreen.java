@@ -227,7 +227,6 @@ public class MainScreen extends javax.swing.JFrame {
         pnlPromedioP.setPreferredSize(new java.awt.Dimension(555, 168));
 
         prgPromedio.setForeground(new java.awt.Color(0, 173, 181));
-        prgPromedio.setAnimated(false);
         prgPromedio.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         prgPromedio.setName(""); // NOI18N
         prgPromedio.setString("90");
@@ -281,7 +280,6 @@ public class MainScreen extends javax.swing.JFrame {
         lblSubC.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         prgPromedio1.setForeground(new java.awt.Color(0, 173, 181));
-        prgPromedio1.setAnimated(false);
         prgPromedio1.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         prgPromedio1.setName(""); // NOI18N
         prgPromedio1.setString("90");
@@ -342,7 +340,7 @@ public class MainScreen extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pantallaLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanelRound2, javax.swing.GroupLayout.DEFAULT_SIZE, 1109, Short.MAX_VALUE)
+                    .addComponent(jPanelRound2, javax.swing.GroupLayout.DEFAULT_SIZE, 1127, Short.MAX_VALUE)
                     .addComponent(pnlNota, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pantallaLayout.createSequentialGroup()
                         .addComponent(pnlPromedioP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -756,7 +754,9 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgEstActionPerformed
 
     private void btnAgProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgProfActionPerformed
-
+        AgregarDocente agedo = new AgregarDocente(); 
+        pantalla.add(agedo); 
+        agedo.show();
     }//GEN-LAST:event_btnAgProfActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed

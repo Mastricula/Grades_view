@@ -67,14 +67,31 @@ public class Administrador extends Usuario
         return mastricula;
     }
     
-    private void CrearUsuario(String matricula)
+    private String GenerarMatriculaP (String tabla, String campo) 
+    {
+        if (counter == -1) {
+            counter = obtenerUltimoContador(tabla, campo) + 1;
+        }
+        
+        String identy = "P";
+        String formato = String.format("%04d", counter);
+
+        mastricula = identy + "-" + formato;
+
+        counter++;
+        return mastricula;
+    }
+    
+ 
+    
+    private void CrearUsuario(String matricula, String Rol)
     {
         Conexion conexion= new Conexion();
         Connection conectado=conexion.Conectar();
         
         String usuario=matricula;
         String password=matricula;
-        String rol="Estudiante";
+        String rol = Rol;
         String Query="INSERT INTO Usuarios(usu,passw,rol) VALUES('"+usuario+"','"+password+"','"+rol+"')";
         String Query2="SELECT id_usu FROM Usuarios WHERE usu='"+matricula+"' ";
         
@@ -92,6 +109,8 @@ public class Administrador extends Usuario
     public void Agregar(String nombre, String apellido, String fechaNacimiento, int idCurso)
     {
       int id_usu=0;
+      String rol = "Estudiante";
+              
       Conexion conexion= new Conexion();
       Connection conectado=conexion.Conectar();
       
@@ -100,7 +119,7 @@ public class Administrador extends Usuario
       {
                
         String matricula=GenerarMatricula("Estudiantes", "id_estu"); 
-        CrearUsuario(matricula);
+        CrearUsuario(matricula, rol);
         
         Statement statement = conectado.createStatement();
         
@@ -112,6 +131,38 @@ public class Administrador extends Usuario
         }
         System.out.println(id_usu);
         statement.executeUpdate("INSERT INTO Estudiantes(matricula,nombre,apellido,fecha_nacimiento,id_curso,id_usu) VALUES('" + matricula + "','" + nombre + "','" + apellido + "','" + fechaNacimiento + "', "+ idCurso+", '"+id_usu+"' )");
+       }
+      catch(SQLException ex)
+      {
+        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);  
+      }                      
+    }
+    
+    public void Agregar(String nombre, String apellido, String cedula, String fechaNacimiento)
+    {
+      int id_usu=0;
+      String rol = "Profe";
+      
+      Conexion conexion= new Conexion();
+      Connection conectado=conexion.Conectar();
+      
+  
+      try 
+      {
+               
+        String matricula=GenerarMatriculaP("Profesores", "id_profe"); 
+        CrearUsuario(matricula, rol);
+        
+        Statement statement = conectado.createStatement();
+        
+        ResultSet resultado=statement.executeQuery("SELECT id_usu FROM Usuarios WHERE usu='"+matricula+"' ");
+        
+        if(resultado.next())
+        {
+          id_usu=resultado.getInt("id_usu");
+        }
+        System.out.println(id_usu);
+        statement.executeUpdate("INSERT INTO Profesores(matricula,nombre,apellido,cedula,fecha_nacimiento,id_usu) VALUES('" + matricula + "', '" + nombre + "', '" + apellido + "', '" + cedula + "', '" + fechaNacimiento + "', '"+id_usu+"' )");
        }
       catch(SQLException ex)
       {

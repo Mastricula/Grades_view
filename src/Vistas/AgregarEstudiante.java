@@ -4,8 +4,9 @@ import Controller.Administracion;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import Controller.Conexion;
-import Controller.Importar;
+import Controller.Documentos;
 import java.awt.Color;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -18,7 +19,9 @@ public class AgregarEstudiante extends javax.swing.JFrame {
 
     int mouseX;
     int mouseY;
-
+    Documentos docs = new Documentos(); 
+    
+    
     public AgregarEstudiante() {
 
         initComponents();
@@ -394,7 +397,14 @@ public class AgregarEstudiante extends javax.swing.JFrame {
     }//GEN-LAST:event_inputEdadActionPerformed
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            docs.exportarDocumento();
+        } catch (IOException ex) {
+            Logger.getLogger(AgregarEstudiante.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarEstudiante.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
@@ -408,8 +418,19 @@ public class AgregarEstudiante extends javax.swing.JFrame {
 
     private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
         // TODO add your handling code here:
-        Importar importar = new Importar();
-        importar.documento();
+        docs.subirDocumento();
+        try { 
+            docs.leerDocumento();
+        } catch (IOException ex) {
+            Logger.getLogger(AgregarEstudiante.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            docs.importar();
+        } catch (IOException ex) {
+            Logger.getLogger(Agregar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Agregar.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnImportarActionPerformed
 
     public static void main(String args[]) {
