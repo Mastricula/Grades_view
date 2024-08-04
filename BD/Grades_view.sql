@@ -214,12 +214,7 @@ SELECT * FROM curso_mate;
 SELECT * FROM Materias;
 SELECT nombre, apellido FROM Estudiantes;
 
-SELECT e.matricula, 'Estudiante' AS tipo
-FROM estudiantes e
-WHERE e.id_usu = 10;
-UNION
-SELECT p.matricula, 'Profesor' AS tipo
-FROM profesores p
-WHERE p.id_usu = 9;
+SELECT e.nombre, e.apellido, e.matricula, 'Estudiante' AS tipo FROM estudiantes e WHERE e.id_usu = 7  
+UNION 
+SELECT p.nombre, p.apellido, p.matricula, 'Profesor' AS tipo FROM profesores p WHERE p.id_usu = 7;
 
-SELECT * FROM usuarios;

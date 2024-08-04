@@ -1,6 +1,6 @@
 package Vistas;
 
-import Controller.Administracion;
+import Controller.*;
 import java.awt.*;
 import Controller.Conexion;
 import Controller.Usuario;

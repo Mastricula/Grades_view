@@ -33,30 +33,8 @@ public class Usuario {
         return usu;
     }
     
-    public String DatosUsuarios(String tabla, int usu) {
-  
-        try {
-            Statement statement;
-            statement = conn.createStatement();
-            String query = "SELECT nombre, apellido FROM "+tabla+" WHERE id_usu = " + usu + "";
-
-            ResultSet resultset = statement.executeQuery(query);
-
-            if (resultset.next()) {
-                String nombre = resultset.getString("nombre");
-                String apellido = resultset.getString("apellido");
-                nombreUsu = nombre + " " + apellido;
-                //System.out.println(nombreUsu);
-                
-            }
-        } catch (SQLException e){
-            
-        }
-        return nombreUsu;
-    }
     
-    
-    public String DatosUsuarios( int usu) {
+    public String DatosUsuarios(int usu) {
   
         try {
             Statement statement;
