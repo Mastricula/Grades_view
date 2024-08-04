@@ -10,62 +10,57 @@ public class Usuario {
     int id;
     String usu;
     String rol;
-    String matricula;
 
     public Usuario() {
 
     }
-
+    
     public Usuario(int id, String usu, String rol) {
-        this.id = id;
-        this.usu = usu;
-        this.rol = rol;
+       this.id = id;
+       this.usu = usu;
+       this.rol = rol;
     }
 
     Conexion conexion = new Conexion();
     Connection conn = conexion.Conectar();
-    String nombreUsu;
-
-    public void setusu(String usu) {
+    public String nombreUsu;
+    
+    public void setusu(String usu){
         this.usu = usu;
     }
-
-    public String getusu() {
+    
+    public String getusu(){
         return usu;
     }
-
+    
+    
     public String DatosUsuarios(int usu) {
-
+  
         try {
             Statement statement;
             statement = conn.createStatement();
-            String query = "SELECT  e.nombre, e.apellido, e.matricula, 'Estudiante' AS tipo FROM estudiantes e WHERE e.id_usu = " + usu + " "
-                    + "UNION SELECT p.nombre, p.apellido, p.matricula, 'Profesor' AS tipo FROM profesores p WHERE p.id_usu = " + usu + "";
+            String query = "SELECT  e.nombre, e.apellido, e.matricula, 'Estudiante' AS tipo FROM estudiantes e WHERE e.id_usu = "+ usu +" "
+                    + "UNION SELECT p.nombre, p.apellido, p.matricula, 'Profesor' AS tipo FROM profesores p WHERE p.id_usu = "+ usu +"";
 
             ResultSet resultset = statement.executeQuery(query);
 
             if (resultset.next()) {
                 String nombre = resultset.getString("nombre");
                 String apellido = resultset.getString("apellido");
-                matricula = resultset.getString("matricula");
                 nombreUsu = nombre + " " + apellido;
                 System.out.println(nombreUsu);
-
+                
             }
-        } catch (SQLException e) {
-
+        } catch (SQLException e){
+            
         }
         return nombreUsu;
     }
-
-    public String getMatricula() {
-
-        return matricula;
-    }
-
-    public static void main(String[] args) {
+    
+    
+    public static void main(String[]args)
+    {
         Usuario datos = new Usuario();
-        datos.DatosUsuarios(7);
-        System.out.println(datos.getMatricula());
-    }
+        System.out.println(datos.getusu());
+    } 
 }
