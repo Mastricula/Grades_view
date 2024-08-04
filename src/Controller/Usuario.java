@@ -33,6 +33,53 @@ public class Usuario {
         return usu;
     }
     
+    public String DatosUsuarios(String tabla, int usu) {
+  
+        try {
+            Statement statement;
+            statement = conn.createStatement();
+            String query = "SELECT nombre, apellido FROM "+tabla+" WHERE id_usu = " + usu + "";
+
+            ResultSet resultset = statement.executeQuery(query);
+
+            if (resultset.next()) {
+                String nombre = resultset.getString("nombre");
+                String apellido = resultset.getString("apellido");
+                nombreUsu = nombre + " " + apellido;
+                //System.out.println(nombreUsu);
+                
+            }
+        } catch (SQLException e){
+            
+        }
+        return nombreUsu;
+    }
+    
+    
+    public String DatosUsuarios( int usu) {
+  
+        try {
+            Statement statement;
+            statement = conn.createStatement();
+            String query = "SELECT  e.nombre, e.apellido, e.matricula, 'Estudiante' AS tipo FROM estudiantes e WHERE e.id_usu = "+ usu +" "
+                    + "UNION SELECT p.nombre, p.apellido, p.matricula, 'Profesor' AS tipo FROM profesores p WHERE p.id_usu = "+ usu +"";
+
+            ResultSet resultset = statement.executeQuery(query);
+
+            if (resultset.next()) {
+                String nombre = resultset.getString("nombre");
+                String apellido = resultset.getString("apellido");
+                nombreUsu = nombre + " " + apellido;
+                System.out.println(nombreUsu);
+                
+            }
+        } catch (SQLException e){
+            
+        }
+        return nombreUsu;
+    }
+    
+    
     public static void main(String[]args)
     {
         Usuario datos = new Usuario();

@@ -4,8 +4,7 @@
  */
 package Vistas;
 
-import Controller.Administracion;
-import Controller.Conexion;
+import Controller.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

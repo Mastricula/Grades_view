@@ -90,7 +90,6 @@ INSERT INTO Usuarios (usu, passw, rol) VALUES ('Jose', '1234', 'admin');
 INSERT INTO Usuarios (usu, passw, rol) VALUES ('P-0000', 'P-0000', 'profe');
 INSERT INTO Usuarios (usu, passw, rol) VALUES ('P-0001', 'P-0001', 'profe');
 INSERT INTO Usuarios (usu, passw, rol) VALUES ('P-0002', 'P-0002', 'profe');
-INSERT INTO Usuarios (usu, passw, rol) VALUES ('P-0000', '2024-0000', 'profe');
 INSERT INTO Usuarios (usu, passw, rol) VALUES ('2024-0000', '2024-0000', 'estu');
 INSERT INTO Usuarios (usu, passw, rol) VALUES ('2024-0001', '2024-0001', 'estu');
 INSERT INTO Usuarios (usu, passw, rol) VALUES ('2024-0002', '2024-0002', 'estu');
@@ -123,6 +122,8 @@ INSERT INTO Profesores (matricula, nombre, apellido, cedula, fecha_nacimiento, i
 INSERT INTO Profesores (matricula, nombre, apellido, cedula, fecha_nacimiento, id_usu) VALUES ('P-0001', 'Maribel', 'Rodriguez', '04598765431', '1985-11-15', 6);
 INSERT INTO Profesores (matricula, nombre, apellido, cedula, fecha_nacimiento, id_usu) VALUES ('P-0002', 'Mariela', 'Perdomo', '10145678901', '1978-03-10', 7);
 INSERT INTO Profesores (matricula, nombre, apellido, cedula, fecha_nacimiento, id_usu) VALUES ('P-0003', 'Juan', 'Perez', '05732165491', '1982-07-25', 8);
+
+SELECT * FROM Profesores;
 
 INSERT INTO profe_mate VALUES (1,1);
 INSERT INTO profe_mate VALUES (2,2);
@@ -193,6 +194,13 @@ INSERT INTO notas (id_estu, id_materia, id_profesor, nota_P1, nota_P2, nota_P3, 
 
 SELECT * FROM notas;
 
+SELECT CONCAT(e.nombre, ' ', e.apellido) AS Nombres, matricula, curso , materia AS materias, nota_p1 AS P1, nota_p2 AS P2, nota_p3 AS P3, nota_p4 AS P4 
+FROM notas n
+JOIN estudiantes e ON n.id_estu = e.id_estu
+JOIN cursos c ON e.id_curso = c.id_curso
+JOIN materias m ON n.id_materia = m.id_materia
+WHERE n.id_estu = 1;
+
 SELECT matricula FROM Estudiantes ORDER BY id_estu DESC LIMIT 1;
 
 desc profe_cursos;
@@ -205,3 +213,13 @@ SELECT * FROM Profesores;
 SELECT * FROM curso_mate;
 SELECT * FROM Materias;
 SELECT nombre, apellido FROM Estudiantes;
+
+SELECT e.matricula, 'Estudiante' AS tipo
+FROM estudiantes e
+WHERE e.id_usu = 10;
+UNION
+SELECT p.matricula, 'Profesor' AS tipo
+FROM profesores p
+WHERE p.id_usu = 9;
+
+SELECT * FROM usuarios;

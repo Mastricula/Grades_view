@@ -78,29 +78,6 @@ public class Administracion {
         return mastricula;
     }
 
-
-    public String DatosUsuarios(int usu) {
-  
-        try {
-            Statement statement;
-            statement = conn.createStatement();
-            String query = "SELECT nombre, apellido FROM estudiantes WHERE id_usu = " + usu + "";
-
-            ResultSet resultset = statement.executeQuery(query);
-
-            if (resultset.next()) {
-                String nombre = resultset.getString("nombre");
-                String apellido = resultset.getString("apellido");
-                nombreUsu = nombre + " " + apellido;
-                //System.out.println(nombreUsu);
-                
-            }
-        } catch (SQLException e){
-            
-        }
-        return nombreUsu;
-    }
-    
     public static void main(String[]args)
     {
        /*Administracion admin= new Administracion();

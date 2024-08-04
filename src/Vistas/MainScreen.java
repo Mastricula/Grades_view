@@ -403,6 +403,11 @@ public class MainScreen extends javax.swing.JFrame {
         btnPublicar.setColorHover(new java.awt.Color(2, 133, 139));
         btnPublicar.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         btnPublicar.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnPublicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPublicarActionPerformed(evt);
+            }
+        });
 
         btnAgregar.setBackground(new java.awt.Color(0, 173, 181));
         btnAgregar.setBorder(null);
@@ -784,6 +789,12 @@ public class MainScreen extends javax.swing.JFrame {
             btnPerfil.setEnabled(true);
         }
     }//GEN-LAST:event_btnEstadoActionPerformed
+
+    private void btnPublicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPublicarActionPerformed
+       PublicarNotas pnotas = new PublicarNotas();
+       pantalla.add(pnotas);
+       pnotas.show();
+    }//GEN-LAST:event_btnPublicarActionPerformed
 
     public static void main(String args[]) {
 

@@ -1,10 +1,8 @@
 package Vistas;
 
-import Controller.Administracion;
+import Controller.*;
 import java.sql.Statement;
 import java.sql.ResultSet;
-import Controller.Conexion;
-import Controller.Importar;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.SQLException;

@@ -276,10 +276,10 @@ public class Login extends javax.swing.JFrame {
                     } else {
                         Usuario infoUsu = new Usuario(id_usu, usu, rol);
                         System.out.println(infoUsu.getusu());
-                        Administracion admin = new Administracion();
+                        Usuario dateUser = new Usuario();
                         MainScreen screen = new MainScreen();
                         
-                        screen.btnPerfil.setText(admin.DatosUsuarios(id_usu));
+                        screen.btnPerfil.setText(dateUser.DatosUsuarios(id_usu));
                         this.dispose();
                         screen.setVisible(true);
 
