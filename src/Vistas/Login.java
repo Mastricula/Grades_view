@@ -278,7 +278,7 @@ public class Login extends javax.swing.JFrame {
                         System.out.println(infoUsu.getusu());
                         Usuario dateUser = new Usuario();
                         MainScreen screen = new MainScreen();
-                        
+                        System.out.println(dateUser.getMatricula());
                         screen.btnPerfil.setText(dateUser.DatosUsuarios(id_usu));
                         this.dispose();
                         screen.setVisible(true);
