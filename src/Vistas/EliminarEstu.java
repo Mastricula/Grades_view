@@ -182,6 +182,8 @@ public class EliminarEstu extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(238, 238, 238));
+
         comboBoxEstudiantes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elegir" }));
         comboBoxEstudiantes.setToolTipText("Selecionar Estudiante");
         comboBoxEstudiantes.addActionListener(new java.awt.event.ActionListener() {
