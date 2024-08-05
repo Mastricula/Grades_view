@@ -495,6 +495,11 @@ public class MainScreen extends javax.swing.JFrame {
         btnAgMat.setColorHover(new java.awt.Color(2, 133, 139));
         btnAgMat.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         btnAgMat.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnAgMat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgMatActionPerformed(evt);
+            }
+        });
 
         lblGif.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         lblGif.setForeground(new java.awt.Color(238, 238, 238));
@@ -795,6 +800,13 @@ public class MainScreen extends javax.swing.JFrame {
        pantalla.add(pnotas);
        pnotas.show();
     }//GEN-LAST:event_btnPublicarActionPerformed
+
+    private void btnAgMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgMatActionPerformed
+        // TODO add your handling code here:
+        AgregarMateria agema = new AgregarMateria(); 
+        pantalla.add(agema); 
+        agema.show();
+    }//GEN-LAST:event_btnAgMatActionPerformed
 
     public static void main(String args[]) {
 

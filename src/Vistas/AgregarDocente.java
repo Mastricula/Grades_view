@@ -40,8 +40,7 @@ public class AgregarDocente extends javax.swing.JInternalFrame {
         String cedula = inputCedula.getText();
         
         Administrador admin = new Administrador();
-        admin.Agregar(nombres, apellidos, cedula, fechaNacimiento);
-        
+        admin.Agregar(nombres, apellidos, cedula, fechaNacimiento);   
     }
 
     /**
