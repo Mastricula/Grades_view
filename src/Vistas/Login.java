@@ -17,16 +17,14 @@ public class Login extends javax.swing.JFrame {
 
     int mouseX;
     int mouseY;
-    public String nombreUsu;
-    MainScreen screen = new MainScreen();
-    
+
     public Login() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/IMG/IconoProye.png")).getImage()); //Poniendo icono
         setBackground(new Color(0, 0, 0, 0));//La ventana sera trasparente
         setLocationRelativeTo(null); // La ventana saldrá en el centro
         inputPass.setEchoChar('•'); //Estableciendo el caracter de la contraseña
-        setExtendedState(NORMAL); 
+        setExtendedState(NORMAL);
 //Estado de la ventana
     }
 
@@ -240,58 +238,26 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-        //Instanciamos la clase
-        Conexion conectado = new Conexion();
-        Connection con = conectado.Conectar();
 
-        //Obtenemos  los detos de nuestros input
+        //Obtenemos  los datos de nuestros inputs
         String textoUsu = inputUsu.getText();
         String textoPass = inputPass.getText();
 
-        if (textoUsu.equals("") || textoPass.equals("")) {
+        if (!textoUsu.equals("") && !textoPass.equals("")) {
+            Usuario data = new Usuario();
+            data.Login(textoUsu, textoPass);
 
-            JOptionPane.showMessageDialog(this, "Los campos estan vacios", "ERROR", JOptionPane.ERROR_MESSAGE);
+            if (textoUsu.equals(data.getUsu()) && textoPass.equals(data.getPassw())) {
+                MainScreen screen = new MainScreen(data);
+                data.DatosUsuarios();
+                this.dispose();
+                screen.setVisible(true);
 
-        } else {
-            try {
-                Statement statement;
-                statement = con.createStatement();
-
-                //Creamos la consulta
-                String query = "SELECT * FROM usuarios WHERE usu = '" + textoUsu + "' and BINARY passw = '" + textoPass + "'";
-
-                //Mandamos la consulta  a la BD
-                ResultSet resultset = statement.executeQuery(query);
-
-                //Comprobamos el reusltatdo
-                if (resultset.next()) {
-
-                    int id_usu = resultset.getInt("id_usu");
-                    String usu = resultset.getString("usu");
-                    String rol = resultset.getString("Rol");
-
-                    if ("admin".equals(rol)) {
-                        JOptionPane.showMessageDialog(this, "El usuario ingresado es el admin");
-                        System.out.println(rol);
-                    } else {
-                        Usuario infoUsu = new Usuario(id_usu, usu, rol);
-                        System.out.println(infoUsu.getusu());
-                        Usuario dateUser = new Usuario();
-                        MainScreen screen = new MainScreen();
-                        System.out.println(dateUser.getMatricula());
-                        screen.btnPerfil.setText(dateUser.DatosUsuarios(id_usu));
-                        this.dispose();
-                        screen.setVisible(true);
-
-                        System.out.println(rol);
-                    }
-
-                } else {
-                    JOptionPane.showMessageDialog(this, "El usuario o la contraseña no son correctos");
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                JOptionPane.showMessageDialog(this, "El usuario o la contraseña no son correctos");
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese usuario y contraseña");
         }
     }//GEN-LAST:event_btnIniciarActionPerformed
 

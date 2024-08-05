@@ -81,7 +81,7 @@
                           <Component id="jPanelRound2" pref="1127" max="32767" attributes="0"/>
                           <Component id="pnlNota" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="pnlPromedioP" max="32767" attributes="0"/>
+                              <Component id="pnlPromedioP" pref="564" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                               <Component id="pnlPromedioC" max="32767" attributes="0"/>
                           </Group>

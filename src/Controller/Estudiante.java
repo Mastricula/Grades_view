@@ -8,15 +8,15 @@ import java.util.Date;
 
 public class Estudiante extends Usuario {
 
-    public Estudiante(int id, String usu, String rol) {
-        super(id, usu, rol);
+    public Estudiante() {
+        
     }
 
     public void infoEstu() {
         try {
             Statement statement;
             statement = conn.createStatement();
-            String query = "SELECT * FROM estudiantes WHERE id_usu = " + usu + "";
+            String query = "SELECT * FROM estudiantes WHERE id_usu = " + getUsu() + "";
 
             ResultSet resultset = statement.executeQuery(query);
 
