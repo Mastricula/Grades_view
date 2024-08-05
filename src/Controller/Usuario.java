@@ -14,7 +14,7 @@ public class Usuario {
     private String usu;
     private String passw;
     private String rol;
-    private String id_perfil;
+    private int id_perfil;
     private String nombre;
     private String apellido;
     private String matricula;
@@ -55,7 +55,7 @@ public class Usuario {
             ResultSet resultset = statement.executeQuery(query);
 
             if (resultset.next()) {
-                id_perfil = resultset.getString("ID");
+                id_perfil = resultset.getInt("ID");
                 nombre = resultset.getString("nombre");
                 apellido = resultset.getString("apellido");
                 matricula = resultset.getString("matricula");
@@ -67,6 +67,26 @@ public class Usuario {
         return nombreUsu;
     }
 
+    public ResultSet obtenerNotas() {
+        ResultSet resultset = null;
+        try {
+            Statement statement = conn.createStatement();
+             String query = "SELECT CONCAT(e.nombre, ' ', e.apellido) AS Nombres, e.matricula, c.curso, m.materia AS materias, " +
+                           "n.nota_p1 AS P1, n.nota_p2 AS P2, n.nota_p3 AS P3, n.nota_p4 AS P4, " +
+                           "ROUND((n.nota_p1 + n.nota_p2 + n.nota_p3 + n.nota_p4) / 4.0) AS Total " +
+                           "FROM notas n " +
+                           "JOIN estudiantes e ON n.id_estu = e.id_estu " +
+                           "JOIN cursos c ON e.id_curso = c.id_curso " +
+                           "JOIN materias m ON n.id_materia = m.id_materia " +
+                           "WHERE n.id_estu = " + getIdPerfil() + ";";
+
+            resultset = statement.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultset;
+    }
+    
     public int getIdUsu() {
         return id_usu;
     }
@@ -99,17 +119,16 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public String getIdPerfil() {
-        if (id_perfil == null) {
+    public int getIdPerfil() {
+        if (id_perfil == 0) {
             DatosUsuarios();
         }
         return id_perfil;
     }
 
-    public void setIdPerfil(String id_perfil) {
+    public void setIdPerfil(int id_perfil) {
         this.id_perfil = id_perfil;
     }
-    
     
     public String getMatricula() {
         if (matricula == null) {
@@ -155,8 +174,6 @@ public class Usuario {
         this.apellido = apellido;
     }
     
-    
-
     public static void main(String[] args) {
         Usuario datos = new Usuario();
         datos.Login("P-0001", "P-0001");

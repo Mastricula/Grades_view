@@ -6,6 +6,9 @@ import javax.swing.ImageIcon;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
 
 public class MainScreen extends javax.swing.JFrame {
 
@@ -14,12 +17,9 @@ public class MainScreen extends javax.swing.JFrame {
     boolean estadoA = false;
     boolean estadoM = false;
     boolean estado = false;
-    int num = 90;
-    int num2 = 100;
-    int pro = (num + num2) / 2;
     Conexion cx = new Conexion();
-    
-    private void Resolucion(){
+
+    private void Resolucion() {
         // Obtiene el entorno gráfico
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         // Obtiene el dispositivo gráfico principal (la pantalla principal)
@@ -48,16 +48,6 @@ public class MainScreen extends javax.swing.JFrame {
 
         // Centra la ventana en la pantalla
         this.setLocationRelativeTo(null);
-    }
-    
-    private void AnimacionPromedio() {
-        prgPromedio.setMaximum(100);
-
-        for (int i = 0; i >= pro; i++) {
-            prgPromedio.setValue(i);
-        }
-        prgPromedio.setString(Integer.toString(pro));
-        prgPromedio.setAnimated(false);
     }
 
     private void EstadoMenuAgregar(boolean visible) {
@@ -95,11 +85,10 @@ public class MainScreen extends javax.swing.JFrame {
             }
         }
     }
-    
-    
-    private void mostrarDatosUsuario(Usuario data){
+
+    private void mostrarDatosUsuario(Usuario data) {
         btnPerfil.setText(data.getNombreApe());
-        switch(data.getRol()){
+        switch (data.getRol()) {
             case "estu" -> {
                 btnAgregar.setVisible(false);
                 btnModificar.setVisible(false);
@@ -110,7 +99,80 @@ public class MainScreen extends javax.swing.JFrame {
                 btnAgregar.setVisible(false);
                 btnModificar.setVisible(false);
                 btnNotas.setVisible(false);
+                jScrollPane1.setVisible(false);
+                jTable1.setVisible(false);
             }
+            
+            case "admin" -> {
+                btnPerfil.setText("Admin");
+                btnPerfil.disable();
+            }
+        }
+        TablaNotas(data);
+        Promedio(data);
+    }
+
+    private void TablaNotas(Usuario data) {
+        ResultSet resultset = data.obtenerNotas();
+
+        // Crear un modelo de tabla
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Materia");
+        model.addColumn("P1");
+        model.addColumn("P2");
+        model.addColumn("P3");
+        model.addColumn("P4");
+        model.addColumn("Total");
+
+        try {
+            while (resultset.next()) {
+                Object[] row = {
+                    resultset.getString("materias"),
+                    resultset.getInt("P1"),
+                    resultset.getInt("P2"),
+                    resultset.getInt("P3"),
+                    resultset.getInt("P4"),
+                    resultset.getInt("Total")
+                };
+                model.addRow(row);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Asignar el modelo a la tabla
+        jTable1.setModel(model);
+    }
+    
+    private void Promedio(Usuario data) {
+        ResultSet resultset = data.obtenerNotas();
+        double sumaTotales = 0;
+        int count = 0;
+        int sumaP1 = 0;
+        int sumaP2 = 0;
+        int sumaP3 = 0;
+        int sumaP4 = 0;
+
+        try {
+            while (resultset.next()) {
+                sumaP1 += resultset.getInt("P1");
+                sumaP2 += resultset.getInt("P2");
+                sumaP3 += resultset.getInt("P3");
+                sumaP4 += resultset.getInt("P4");
+                double total = resultset.getDouble("Total");
+                sumaTotales += total;
+                count++;
+            }
+            double promedio = Math.round(sumaTotales / count);
+            prgPromedio1.setString(promedio + "%");
+            prgPromedio1.setValue((int) promedio);
+
+            double promedioActual = Math.round(sumaP4 / 4);
+            prgPromedio.setString(promedioActual + "%");
+            prgPromedio.setValue((int) promedioActual);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -126,7 +188,7 @@ public class MainScreen extends javax.swing.JFrame {
         jTable1.getTableHeader().setFont(new Font("Poppins Medium", Font.PLAIN, 14));
         jTable1.setRowHeight(25);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -177,10 +239,10 @@ public class MainScreen extends javax.swing.JFrame {
         pnlNota.setOpaque(true);
 
         jScrollPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(238, 238, 238), 3, true));
-        jScrollPane1.setFont(new java.awt.Font("Poppins Medium", 1, 12)); // NOI18N
+        jScrollPane1.setFont(new java.awt.Font("Poppins Medium", 0, 18)); // NOI18N
         jScrollPane1.setOpaque(true);
 
-        jTable1.setFont(new java.awt.Font("Poppins Medium", 1, 12)); // NOI18N
+        jTable1.setFont(new java.awt.Font("Poppins Medium", 0, 16)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Lengua española", null, null, null, null},
@@ -242,6 +304,7 @@ public class MainScreen extends javax.swing.JFrame {
         pnlPromedioP.setPreferredSize(new java.awt.Dimension(555, 168));
 
         prgPromedio.setForeground(new java.awt.Color(0, 173, 181));
+        prgPromedio.setAnimated(false);
         prgPromedio.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         prgPromedio.setName(""); // NOI18N
         prgPromedio.setString("90");
@@ -252,7 +315,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         lblSubP.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         lblSubP.setForeground(new java.awt.Color(51, 51, 51));
-        lblSubP.setText("periodo actual");
+        lblSubP.setText("Promedio del periodo actual");
         lblSubP.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout pnlPromedioPLayout = new javax.swing.GroupLayout(pnlPromedioP);
@@ -262,10 +325,10 @@ public class MainScreen extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPromedioPLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(pnlPromedioPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblProgresoP, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+                    .addComponent(lblProgresoP, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
                     .addComponent(lblSubP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(54, 54, 54)
-                .addComponent(prgPromedio, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(prgPromedio, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
         );
         pnlPromedioPLayout.setVerticalGroup(
@@ -291,10 +354,11 @@ public class MainScreen extends javax.swing.JFrame {
 
         lblSubC.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         lblSubC.setForeground(new java.awt.Color(51, 51, 51));
-        lblSubC.setText("Periodo anterior");
+        lblSubC.setText("Tu promedio final es:");
         lblSubC.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         prgPromedio1.setForeground(new java.awt.Color(0, 173, 181));
+        prgPromedio1.setAnimated(false);
         prgPromedio1.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         prgPromedio1.setName(""); // NOI18N
         prgPromedio1.setString("90");
@@ -306,12 +370,10 @@ public class MainScreen extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPromedioCLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(pnlPromedioCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblProgresoC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlPromedioCLayout.createSequentialGroup()
-                        .addComponent(lblSubC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(10, 10, 10)))
-                .addGap(50, 50, 50)
-                .addComponent(prgPromedio1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                    .addComponent(lblProgresoC, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                    .addComponent(lblSubC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(prgPromedio1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
         );
         pnlPromedioCLayout.setVerticalGroup(
@@ -341,7 +403,7 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(pnlNota, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pantallaLayout.createSequentialGroup()
-                        .addComponent(pnlPromedioP, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+                        .addComponent(pnlPromedioP, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
                         .addGap(20, 20, 20)
                         .addComponent(pnlPromedioC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
@@ -572,7 +634,7 @@ public class MainScreen extends javax.swing.JFrame {
                 .addComponent(btnMoProf, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(btnMoMat, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -732,38 +794,27 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void btnAgEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgEstActionPerformed
         Agregar age = new Agregar();
-        if (!estado) {
-            btnAgEst.setIcon(new ImageIcon("src\\IMG\\Iconos\\circle2.png"));
-            estado = !estado;
-            //age.show();
-            pantalla.add(age);
-            age.show();
-            
-        } else {
-            btnAgEst.setIcon(new ImageIcon("src\\IMG\\Iconos\\circle.png"));
-            estado = !estado;
-            pantalla.remove(age);
-            age.dispose();
-        }
+        pantalla.add(age);
+        age.show();
     }//GEN-LAST:event_btnAgEstActionPerformed
 
     private void btnAgProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgProfActionPerformed
-        AgregarDocente agedo = new AgregarDocente(); 
-        pantalla.add(agedo); 
+        AgregarDocente agedo = new AgregarDocente();
+        pantalla.add(agedo);
         agedo.show();
     }//GEN-LAST:event_btnAgProfActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         int respuesta = JOptionPane.showConfirmDialog(this, "¿Seguro que desea salir?", "Confirmar accion", JOptionPane.YES_NO_OPTION);
-        if (respuesta == JOptionPane.YES_OPTION){
+        if (respuesta == JOptionPane.YES_OPTION) {
             this.dispose();
             Login log = new Login();
-            log.setVisible(true); 
+            log.setVisible(true);
         }
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnMoEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoEstActionPerformed
-        
+
     }//GEN-LAST:event_btnMoEstActionPerformed
 
     private void btnEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoActionPerformed
@@ -771,7 +822,7 @@ public class MainScreen extends javax.swing.JFrame {
             btnEstado.setIcon(new ImageIcon("src\\IMG\\Iconos\\circleOFF.png"));
             estado = !estado;
             btnPerfil.setEnabled(false);
-            
+
         } else {
             btnEstado.setIcon(new ImageIcon("src\\IMG\\Iconos\\circleON.png"));
             estado = !estado;
@@ -780,15 +831,15 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEstadoActionPerformed
 
     private void btnPublicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPublicarActionPerformed
-       PublicarNotas pnotas = new PublicarNotas();
-       pantalla.add(pnotas);
-       pnotas.show();
+        PublicarNotas pnotas = new PublicarNotas();
+        pantalla.add(pnotas);
+        pnotas.show();
     }//GEN-LAST:event_btnPublicarActionPerformed
 
     private void btnAgMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgMatActionPerformed
         // TODO add your handling code here:
-        AgregarMateria agema = new AgregarMateria(); 
-        pantalla.add(agema); 
+        AgregarMateria agema = new AgregarMateria();
+        pantalla.add(agema);
         agema.show();
     }//GEN-LAST:event_btnAgMatActionPerformed
 
@@ -811,7 +862,9 @@ public class MainScreen extends javax.swing.JFrame {
     private rojeru_san.rsbutton.RSButtonRoundEffect btnPublicar;
     private rojeru_san.rsbutton.RSButtonRoundEffect btnSalir;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblProgresoC;
     private javax.swing.JLabel lblProgresoP;
@@ -822,6 +875,7 @@ public class MainScreen extends javax.swing.JFrame {
     private rojeru_san.rspanel.RSPanelGradiente pnlBase;
     private rojeru_san.rspanel.RSPanelGradiente pnlMenu;
     private LIB.JPanelRound pnlNota;
+    private LIB.JPanelRound pnlNota1;
     private LIB.JPanelRound pnlPromedioC;
     private LIB.JPanelRound pnlPromedioP;
     private rojeru_san.rsprogress.RSProgressCircleAnimated prgPromedio;

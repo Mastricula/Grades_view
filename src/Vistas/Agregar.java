@@ -64,7 +64,7 @@ public class Agregar extends javax.swing.JInternalFrame {
         } else if (cmbCursos.getSelectedItem().equals("4to de Secundaria")) {
             curso = 4;
             return curso;
-        } else if (cmbCursos.getSelectedItem().equals("5do de Secundaria")) {
+        } else if (cmbCursos.getSelectedItem().equals("5to de Secundaria")) {
             curso = 5;
             return curso;
         } else if (cmbCursos.getSelectedItem().equals("6to de Secundaria")) {
