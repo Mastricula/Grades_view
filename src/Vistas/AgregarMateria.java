@@ -1,10 +1,17 @@
 package Vistas;
 
+import Controller.Documentos;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 
 public class AgregarMateria extends javax.swing.JInternalFrame {
-
-
+    
+    Documentos docs = new Documentos();
+    
     public AgregarMateria() {
         initComponents();
     }
@@ -68,11 +75,21 @@ public class AgregarMateria extends javax.swing.JInternalFrame {
         btnMostrar.setText("MOSTRAR");
         btnMostrar.setColorHover(new java.awt.Color(51, 51, 51));
         btnMostrar.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarActionPerformed(evt);
+            }
+        });
 
         btnImportar.setBackground(new java.awt.Color(102, 102, 102));
         btnImportar.setText("IMPORTAR");
         btnImportar.setColorHover(new java.awt.Color(51, 51, 51));
         btnImportar.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnImportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlBaseLayout = new javax.swing.GroupLayout(pnlBase);
         pnlBase.setLayout(pnlBaseLayout);
@@ -103,13 +120,13 @@ public class AgregarMateria extends javax.swing.JInternalFrame {
                 .addComponent(lblNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnImportar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50))
+                .addGap(35, 35, 35))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -130,6 +147,26 @@ public class AgregarMateria extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         agregarMateria();
     }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
+        try {
+            docs.importarMateria();
+        } catch (IOException ex) {
+            Logger.getLogger(AgregarMateria.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarMateria.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnImportarActionPerformed
+
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
+        try {
+            docs.exportarDocumentoMateria();
+        } catch (IOException ex) {
+            Logger.getLogger(AgregarDocente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarDocente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnMostrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

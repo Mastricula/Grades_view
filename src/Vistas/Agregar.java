@@ -295,8 +295,6 @@ public class Agregar extends javax.swing.JInternalFrame {
 
     private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
         try {
-            // TODO add your handling code here:
-            docs.subirDocumento();
             docs.importar();
         } catch (IOException ex) {
             Logger.getLogger(Agregar.class.getName()).log(Level.SEVERE, null, ex);

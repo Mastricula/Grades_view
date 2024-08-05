@@ -25,6 +25,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
@@ -32,10 +33,10 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
 
 public class Documentos {
-
-    private static String ruta;
-
-    public static void subirDocumento() {
+    
+    public static void leerDocumento() throws IOException {
+        
+        String ruta = null;
         RSFileChooser fileChooser = new necesario.RSFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de Excel", "xls", "xlsx");
         fileChooser.setFileFilter(filter);
@@ -44,9 +45,6 @@ public class Documentos {
             File file = fileChooser.getSelectedFile();
             ruta = file.getAbsolutePath();
         }
-    }
-
-    public static void leerDocumento() throws IOException {
 
         try {
             FileInputStream file = new FileInputStream(new File(ruta));
@@ -104,6 +102,16 @@ public class Documentos {
     }
 
     public static void importar() throws IOException, SQLException {
+        
+        String ruta = null;
+        RSFileChooser fileChooser = new necesario.RSFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de Excel", "xls", "xlsx");
+        fileChooser.setFileFilter(filter);
+        int eleccion = fileChooser.showOpenDialog(null);
+        if (eleccion == RSFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            ruta = file.getAbsolutePath();
+        }
 
         Conexion conexion = new Conexion();
         PreparedStatement statement;
@@ -121,6 +129,10 @@ public class Documentos {
             for (int a = 1; a <= numFilas; a++) {
 
                 Row row = sheet.getRow(a);
+                
+                if (row == null) {
+                    continue;
+                }
 
                 statement = cx.prepareStatement("INSERT INTO Estudiantes (matricula, nombre, apellido, fecha_nacimiento, id_curso, id_usu) VALUES (?, ?, ?, ?, ?, ?)");
                 statement.setString(1, row.getCell(0).getStringCellValue());
@@ -138,6 +150,7 @@ public class Documentos {
                 statement.setInt(6, (int) row.getCell(5).getNumericCellValue());
                 statement.execute();
             }
+            JOptionPane.showMessageDialog(null, "Archivo importado correctamente.", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
             cx.close();
         } 
         catch (FileNotFoundException ex) {
@@ -146,6 +159,16 @@ public class Documentos {
     }
 
     public static void importar(String tabla) throws IOException, SQLException {
+        
+        String ruta = null;
+        RSFileChooser fileChooser = new necesario.RSFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de Excel", "xls", "xlsx");
+        fileChooser.setFileFilter(filter);
+        int eleccion = fileChooser.showOpenDialog(null);
+        if (eleccion == RSFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            ruta = file.getAbsolutePath();
+        }
 
         Conexion conexion = new Conexion();
         PreparedStatement statement;
@@ -163,6 +186,10 @@ public class Documentos {
             for (int a = 1; a <= numFilas; a++) {
 
                 Row row = sheet.getRow(a);
+                
+                if (row == null) {
+                    continue;
+                }
 
                 statement = cx.prepareStatement("INSERT INTO Profesores (matricula, nombre, apellido, cedula, fecha_nacimiento, id_usu) VALUES (?, ?, ?, ?, ?, ?)");
                 statement.setString(1, row.getCell(0).getStringCellValue());
@@ -178,6 +205,51 @@ public class Documentos {
                 statement.setInt(6, (int) row.getCell(5).getNumericCellValue());
                 statement.execute();
             }
+            JOptionPane.showMessageDialog(null, "Archivo importado correctamente.", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+            cx.close();
+        } 
+        catch (FileNotFoundException ex) {
+            Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void importarMateria() throws IOException, SQLException {
+        
+        String ruta = null;
+        RSFileChooser fileChooser = new necesario.RSFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de Excel", "xls", "xlsx");
+        fileChooser.setFileFilter(filter);
+        int eleccion = fileChooser.showOpenDialog(null);
+        if (eleccion == RSFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            ruta = file.getAbsolutePath();
+        }
+
+        Conexion conexion = new Conexion();
+        PreparedStatement statement;
+
+        try {
+            Connection cx = conexion.Conectar();
+            FileInputStream file = new FileInputStream(new File(ruta));
+
+            XSSFWorkbook workbook = new XSSFWorkbook(file);
+            XSSFSheet sheet = workbook.getSheetAt(0);
+
+            int numFilas = sheet.getLastRowNum();
+
+            for (int a = 1; a <= numFilas; a++) {
+
+                Row row = sheet.getRow(a);
+                
+                if (row == null) {
+                    continue;
+                }
+
+                statement = cx.prepareStatement("INSERT INTO Materias (materia) VALUES (?)");
+                statement.setString(1, row.getCell(0).getStringCellValue());
+                statement.execute();
+            }
+            JOptionPane.showMessageDialog(null, "Archivo importado correctamente.", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
             cx.close();
         } 
         catch (FileNotFoundException ex) {
@@ -358,6 +430,194 @@ public class Documentos {
             if (userSelection == RSFileChooser.APPROVE_OPTION) {
             File carpetaSeleccionada = fileChooser.getSelectedFile();
             String rutaDeDescarga = carpetaSeleccionada.getAbsolutePath() + "/Estudiantes.xlsx";
+            
+            FileOutputStream fileout = new FileOutputStream(rutaDeDescarga);
+            workbook.write(fileout);
+            fileout.close();
+            
+            File archivo = new File(rutaDeDescarga);
+            Desktop.getDesktop().open(archivo);
+            }
+           
+        } 
+        catch (FileNotFoundException ex) {
+            Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void exportarDocumentoMateria() throws IOException, SQLException {
+
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Materias");
+
+        try {
+
+            String[] titulos = new String[]{"Materia"};
+
+            CellStyle headerStyle = workbook.createCellStyle();
+            headerStyle.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+            headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            headerStyle.setBorderBottom(BorderStyle.THIN);
+            headerStyle.setBorderLeft(BorderStyle.THIN);
+            headerStyle.setBorderRight(BorderStyle.THIN);
+
+            Font font = workbook.createFont();
+            font.setFontName("Arial");
+            font.setBold(true);
+            font.setColor(IndexedColors.WHITE.getIndex());
+            font.setFontHeightInPoints((short) 12);
+            headerStyle.setFont(font);
+
+            Row filaTitulos = sheet.createRow(0);
+
+            for (int i = 0; i < titulos.length; i++) {
+
+                Cell celdaTitulo = filaTitulos.createCell(i);
+                celdaTitulo.setCellStyle(headerStyle);
+                celdaTitulo.setCellValue(titulos[i]);
+                
+            }
+
+            Conexion conexion = new Conexion();
+            PreparedStatement statement;
+            ResultSet rs;
+            Connection cx = conexion.Conectar();
+            
+            CellStyle celdaStyle = workbook.createCellStyle();
+            celdaStyle.setBorderBottom(BorderStyle.THIN);
+            celdaStyle.setBorderLeft(BorderStyle.THIN);
+            celdaStyle.setBorderRight(BorderStyle.THIN);
+
+            int psInicial = 1; 
+
+            statement = cx.prepareStatement("SELECT materia FROM Materias");
+
+            rs = statement.executeQuery();
+            
+            int numCol = rs.getMetaData().getColumnCount();
+            
+            while(rs.next()){
+                
+                Row filaDatos = sheet.createRow(psInicial);
+                
+                for(int a = 0 ; a < numCol ; a ++){
+                    
+                    Cell celdaDatos = filaDatos.createCell(a);
+                    celdaDatos.setCellStyle(celdaStyle);
+                    
+                    if(a == 5 || a == 4){
+                        celdaDatos.setCellValue(rs.getInt(a+1));
+                    }
+                    else{
+                        celdaDatos.setCellValue(rs.getString(a+1));
+                    }
+                    sheet.autoSizeColumn(a);
+                }
+                psInicial++; 
+            }
+            
+            RSFileChooser fileChooser = new RSFileChooser();
+            fileChooser.setFileSelectionMode(RSFileChooser.DIRECTORIES_ONLY);
+            
+            int userSelection = fileChooser.showOpenDialog(null);
+            
+            if (userSelection == RSFileChooser.APPROVE_OPTION) {
+            File carpetaSeleccionada = fileChooser.getSelectedFile();
+            String rutaDeDescarga = carpetaSeleccionada.getAbsolutePath() + "/Materias.xlsx";
+            
+            FileOutputStream fileout = new FileOutputStream(rutaDeDescarga);
+            workbook.write(fileout);
+            fileout.close();
+            
+            File archivo = new File(rutaDeDescarga);
+            Desktop.getDesktop().open(archivo);
+            }
+           
+        } 
+        catch (FileNotFoundException ex) {
+            Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void exportarNotas() throws IOException, SQLException {
+
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Estudiantes");
+
+        try {
+
+            String[] titulos = new String[]{"Id del estudiante", "Id de la Materia", "Id del profesor", "Nota P1", "Nota P2", "Nota P3", "Nota P4", "Fecha de publicacion"};
+
+            CellStyle headerStyle = workbook.createCellStyle();
+            headerStyle.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+            headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            headerStyle.setBorderBottom(BorderStyle.THIN);
+            headerStyle.setBorderLeft(BorderStyle.THIN);
+            headerStyle.setBorderRight(BorderStyle.THIN);
+
+            Font font = workbook.createFont();
+            font.setFontName("Arial");
+            font.setBold(true);
+            font.setColor(IndexedColors.WHITE.getIndex());
+            font.setFontHeightInPoints((short) 12);
+            headerStyle.setFont(font);
+
+            Row filaTitulos = sheet.createRow(0);
+
+            for (int i = 0; i < titulos.length; i++) {
+
+                Cell celdaTitulo = filaTitulos.createCell(i);
+                celdaTitulo.setCellStyle(headerStyle);
+                celdaTitulo.setCellValue(titulos[i]);
+                
+            }
+
+            Conexion conexion = new Conexion();
+            PreparedStatement statement;
+            ResultSet rs;
+            Connection cx = conexion.Conectar();
+            
+            CellStyle celdaStyle = workbook.createCellStyle();
+            celdaStyle.setBorderBottom(BorderStyle.THIN);
+            celdaStyle.setBorderLeft(BorderStyle.THIN);
+            celdaStyle.setBorderRight(BorderStyle.THIN);
+
+            int psInicial = 1; 
+
+            statement = cx.prepareStatement("SELECT id_estu, id_materia, id_profesor, nota_P1, nota_p2, nota_p3, nota_p4, fecha_publicacion FROM Notas");
+
+            rs = statement.executeQuery();
+            
+            int numCol = rs.getMetaData().getColumnCount();
+            
+            while(rs.next()){
+                
+                Row filaDatos = sheet.createRow(psInicial);
+                
+                for(int a = 0 ; a < numCol ; a ++){
+                    
+                    Cell celdaDatos = filaDatos.createCell(a);
+                    celdaDatos.setCellStyle(celdaStyle);
+                    
+                    if(a == 7){
+                        celdaDatos.setCellValue(rs.getString(a+1));
+                    }
+                    else{
+                        celdaDatos.setCellValue(rs.getInt(a+1));
+                    }
+                    sheet.autoSizeColumn(a);
+                }
+                psInicial++; 
+            }
+            
+            RSFileChooser fileChooser = new RSFileChooser();
+            fileChooser.setFileSelectionMode(RSFileChooser.DIRECTORIES_ONLY);
+            
+            int userSelection = fileChooser.showOpenDialog(null);
+            
+            if (userSelection == RSFileChooser.APPROVE_OPTION) {
+            File carpetaSeleccionada = fileChooser.getSelectedFile();
+            String rutaDeDescarga = carpetaSeleccionada.getAbsolutePath() + "/Notas.xlsx";
             
             FileOutputStream fileout = new FileOutputStream(rutaDeDescarga);
             workbook.write(fileout);
