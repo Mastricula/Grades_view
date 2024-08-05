@@ -96,16 +96,13 @@ public class MainScreen extends javax.swing.JFrame {
         }
     }
     
-    private void mostrarDatosUsuario(Usuario data) {
-        btnPerfil.setText(data.getNombreApe());
-    }
-    
-    public MainScreen(Usuario data) {
+    public MainScreen() {
         initComponents();
         setLocationRelativeTo(null);
         EstadoMenuAgregar(false);
         EstadoMenuModificar(false);
-        mostrarDatosUsuario(data);
+        //AnimacionPromedio();
+        //AjustarVentana();
         jTable1.getTableHeader().setOpaque(false);
         jTable1.getTableHeader().setBackground(new Color(0x00ADB5));
         jTable1.getTableHeader().setForeground(new Color(0xFFFFFF));
@@ -498,6 +495,11 @@ public class MainScreen extends javax.swing.JFrame {
         btnAgMat.setColorHover(new java.awt.Color(2, 133, 139));
         btnAgMat.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         btnAgMat.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnAgMat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgMatActionPerformed(evt);
+            }
+        });
 
         lblGif.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         lblGif.setForeground(new java.awt.Color(238, 238, 238));
@@ -799,7 +801,47 @@ public class MainScreen extends javax.swing.JFrame {
        pnotas.show();
     }//GEN-LAST:event_btnPublicarActionPerformed
 
-    
+    private void btnAgMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgMatActionPerformed
+        // TODO add your handling code here:
+        AgregarMateria agema = new AgregarMateria(); 
+        pantalla.add(agema); 
+        agema.show();
+    }//GEN-LAST:event_btnAgMatActionPerformed
+
+    public static void main(String args[]) {
+
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MainScreen.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MainScreen.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MainScreen.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MainScreen.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MainScreen().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojeru_san.rsbutton.RSButtonRoundEffect btnAgEst;

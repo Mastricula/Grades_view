@@ -142,6 +142,21 @@ public class Administrador extends Usuario {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+        public void Agregar(String nombre) {
+
+        Conexion conexion = new Conexion();
+        Connection conectado = conexion.Conectar();
+
+        try {
+                
+            Statement statement = conectado.createStatement();         
+
+            statement.executeUpdate("INSERT INTO Materias(materia) VALUES('" + nombre + "')");
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public void Editar(String matricula, String nombre, String apellido, String fechaNacimiento, int idCurso) {
         Conexion conexion = new Conexion();
