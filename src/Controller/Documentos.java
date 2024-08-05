@@ -25,6 +25,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
@@ -139,6 +140,8 @@ public class Documentos {
                 statement.execute();
             }
             cx.close();
+            
+            JOptionPane.showMessageDialog(null, "Archivo importado correctamente.", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
         } 
         catch (FileNotFoundException ex) {
             Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
@@ -179,6 +182,8 @@ public class Documentos {
                 statement.execute();
             }
             cx.close();
+            
+            JOptionPane.showMessageDialog(null, "Archivo importado correctamente.", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
         } 
         catch (FileNotFoundException ex) {
             Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);

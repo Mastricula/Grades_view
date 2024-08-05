@@ -67,6 +67,8 @@ public class AgregarDocente extends javax.swing.JInternalFrame {
         lblApellido1 = new javax.swing.JLabel();
         inputFecha = new rojeru_san.rsdate.RSDateChooser();
 
+        setClosable(true);
+
         pnlBase.setBackground(new java.awt.Color(238, 238, 238));
         pnlBase.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 

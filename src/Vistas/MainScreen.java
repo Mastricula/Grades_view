@@ -448,6 +448,11 @@ public class MainScreen extends javax.swing.JFrame {
         btnMoProf.setColorHover(new java.awt.Color(2, 133, 139));
         btnMoProf.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         btnMoProf.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnMoProf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoProfActionPerformed(evt);
+            }
+        });
 
         btnMoEst.setBackground(new java.awt.Color(0, 173, 181));
         btnMoEst.setBorder(null);
@@ -795,6 +800,12 @@ public class MainScreen extends javax.swing.JFrame {
        pantalla.add(pnotas);
        pnotas.show();
     }//GEN-LAST:event_btnPublicarActionPerformed
+
+    private void btnMoProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoProfActionPerformed
+        EliminarDocente elimdo = new EliminarDocente(); 
+        pantalla.add(elimdo); 
+        elimdo.show();
+    }//GEN-LAST:event_btnMoProfActionPerformed
 
     public static void main(String args[]) {
 

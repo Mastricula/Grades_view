@@ -189,6 +189,24 @@ public class Administrador extends Usuario
       }
     }
     
+    public void Editar(String matricula, String nombre, String apellido, String cedula, String fechaNacimiento, String tabla){
+        Conexion conexion= new Conexion();
+        Connection conectado=conexion.Conectar();
+        
+        try
+      {
+          Statement statement= conectado.createStatement();
+          statement.executeUpdate("UPDATE " + tabla + " SET nombre='"+nombre+"', apellido='"+apellido+"', fecha_nacimiento='"+fechaNacimiento+"',cedula="+cedula+" WHERE matricula='"+matricula+"'");
+               
+      }
+      
+      
+      catch(SQLException ex)
+      {
+        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);  
+      }
+    }
+    
     public void Eliminar(String matricula)
     {
         int id_estu = 0;
@@ -212,7 +230,56 @@ public class Administrador extends Usuario
         {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+    }
     
+    public void Eliminar(String matricula, String tabla)
+    {
+        int id_profe = 0;
+        
+        Conexion conexion= new Conexion();
+        Connection conectado= conexion.Conectar();
+        try
+        {
+            Statement statement= conectado.createStatement();
+            ResultSet resultado= statement.executeQuery("SELECT*FROM " + tabla + " WHERE matricula='"+matricula+"'");
+            
+            while(resultado.next())
+            {
+                id_profe = resultado.getInt("id_profe");  
+            }
+            
+            statement.executeUpdate("DELETE FROM " + tabla + " WHERE id_profe="+id_profe);
+     
+        }
+        catch(SQLException ex)
+        {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void eliminarTablasIntermedias(String matricula){
+        int id_profe = 0;
+        
+        Conexion conexion= new Conexion();
+        Connection conectado= conexion.Conectar();
+        try
+        {
+            Statement statement= conectado.createStatement();
+            ResultSet resultado= statement.executeQuery("SELECT*FROM Profesores WHERE matricula='"+matricula+"'");
+            
+            while(resultado.next())
+            {
+                id_profe = resultado.getInt("id_profe");  
+            }
+            
+            statement.executeUpdate("DELETE FROM profe_cursos WHERE id_profe="+id_profe);
+            statement.executeUpdate("DELETE FROM profe_mate WHERE id_profe="+id_profe);
+     
+        }
+        catch(SQLException ex)
+        {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }
