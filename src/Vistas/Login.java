@@ -238,7 +238,6 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-
         //Obtenemos  los datos de nuestros inputs
         String textoUsu = inputUsu.getText();
         String textoPass = inputPass.getText();

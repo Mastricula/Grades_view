@@ -10,10 +10,11 @@ import java.util.logging.Logger;
 
 public class Usuario {
 
-    private int id;
+    private int id_usu;
     private String usu;
     private String passw;
     private String rol;
+    private String id_perfil;
     private String nombre;
     private String apellido;
     private String matricula;
@@ -35,7 +36,7 @@ public class Usuario {
             ResultSet resultset = statement.executeQuery(query);
 
             if (resultset.next()) {
-                id = resultset.getInt("id_usu");
+                id_usu = resultset.getInt("id_usu");
                 usu = resultset.getString("usu");
                 passw = resultset.getString("passw");
                 rol = resultset.getString("rol");
@@ -48,12 +49,13 @@ public class Usuario {
     public String DatosUsuarios() {
         try {
             Statement statement = conn.createStatement();
-            String query = "SELECT e.nombre, e.apellido, e.matricula, 'Estudiante' AS tipo FROM estudiantes e WHERE e.id_usu = " + id + " "
-                    + "UNION SELECT p.nombre, p.apellido, p.matricula, 'Profesor' AS tipo FROM profesores p WHERE p.id_usu = " + id;
+            String query = "SELECT e.id_estu AS ID, e.id_estu, e.nombre, e.apellido, e.matricula, 'Estudiante' AS tipo FROM estudiantes e WHERE e.id_usu = " + id_usu + " "
+                    + "UNION SELECT p.id_profe AS ID, p.id_profe, p.nombre, p.apellido, p.matricula, 'Profesor' AS tipo FROM profesores p WHERE p.id_usu = " + id_usu;
 
             ResultSet resultset = statement.executeQuery(query);
 
             if (resultset.next()) {
+                id_perfil = resultset.getString("ID");
                 nombre = resultset.getString("nombre");
                 apellido = resultset.getString("apellido");
                 matricula = resultset.getString("matricula");
@@ -65,12 +67,12 @@ public class Usuario {
         return nombreUsu;
     }
 
-    public int getId() {
-        return id;
+    public int getIdUsu() {
+        return id_usu;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdUsu(int id_usu) {
+        this.id_usu = id_usu;
     }
 
     public String getUsu() {
@@ -89,6 +91,17 @@ public class Usuario {
         this.passw = passw;
     }
 
+    public String getIdPerfil() {
+        if (id_perfil == null) {
+            DatosUsuarios();
+        }
+        return id_perfil;
+    }
+
+    public void setIdPerfil(String id_perfil) {
+        this.id_perfil = id_perfil;
+    }
+    
     public String getMatricula() {
         if (matricula == null) {
             DatosUsuarios();
