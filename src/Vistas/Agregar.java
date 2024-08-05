@@ -13,8 +13,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.ImageIcon;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
+
 
 public class Agregar extends javax.swing.JInternalFrame {
     
@@ -25,8 +24,7 @@ public class Agregar extends javax.swing.JInternalFrame {
         AgregarDatosAlCombobox();
         //setBackground(new Color(0, 0, 0, 0));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
-        BasicInternalFrameUI bui = (BasicInternalFrameUI) this.getUI();
-        //bui.setNorthPane(null);
+
     }
     
     private void AgregarDatosAlCombobox() 

@@ -90,6 +90,14 @@ public class Usuario {
     public void setPassw(String passw) {
         this.passw = passw;
     }
+    
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
 
     public String getIdPerfil() {
         if (id_perfil == null) {
@@ -101,6 +109,7 @@ public class Usuario {
     public void setIdPerfil(String id_perfil) {
         this.id_perfil = id_perfil;
     }
+    
     
     public String getMatricula() {
         if (matricula == null) {
@@ -145,6 +154,8 @@ public class Usuario {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
+    
+    
 
     public static void main(String[] args) {
         Usuario datos = new Usuario();

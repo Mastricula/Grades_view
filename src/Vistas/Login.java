@@ -2,15 +2,8 @@ package Vistas;
 
 import Controller.*;
 import java.awt.*;
-import Controller.Conexion;
 import Controller.Usuario;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import java.sql.Statement;
-import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 
 public class Login extends javax.swing.JFrame {
