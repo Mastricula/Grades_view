@@ -5,6 +5,10 @@ import java.awt.*;
 import javax.swing.ImageIcon;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class MainScreen extends javax.swing.JFrame {
@@ -385,6 +389,11 @@ public class MainScreen extends javax.swing.JFrame {
         btnNotas.setColorHover(new java.awt.Color(2, 133, 139));
         btnNotas.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         btnNotas.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnNotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNotasActionPerformed(evt);
+            }
+        });
 
         btnMaterias.setBackground(new java.awt.Color(0, 173, 181));
         btnMaterias.setBorder(null);
@@ -440,6 +449,11 @@ public class MainScreen extends javax.swing.JFrame {
         btnMoMat.setColorHover(new java.awt.Color(2, 133, 139));
         btnMoMat.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         btnMoMat.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnMoMat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoMatActionPerformed(evt);
+            }
+        });
 
         btnMoProf.setBackground(new java.awt.Color(0, 173, 181));
         btnMoProf.setBorder(null);
@@ -500,6 +514,11 @@ public class MainScreen extends javax.swing.JFrame {
         btnAgMat.setColorHover(new java.awt.Color(2, 133, 139));
         btnAgMat.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         btnAgMat.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnAgMat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgMatActionPerformed(evt);
+            }
+        });
 
         lblGif.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         lblGif.setForeground(new java.awt.Color(238, 238, 238));
@@ -779,7 +798,9 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnMoEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoEstActionPerformed
-        
+        EliminarEstu elimes = new EliminarEstu();
+        pantalla.add(elimes);
+        elimes.show();
     }//GEN-LAST:event_btnMoEstActionPerformed
 
     private void btnEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoActionPerformed
@@ -806,6 +827,30 @@ public class MainScreen extends javax.swing.JFrame {
         pantalla.add(elimdo); 
         elimdo.show();
     }//GEN-LAST:event_btnMoProfActionPerformed
+
+    private void btnAgMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgMatActionPerformed
+        // TODO add your handling code here:
+        AgregarMateria agema = new AgregarMateria(); 
+        pantalla.add(agema); 
+        agema.show();
+    }//GEN-LAST:event_btnAgMatActionPerformed
+
+    private void btnMoMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoMatActionPerformed
+        EliminarMateria elimma = new EliminarMateria();
+        pantalla.add(elimma);
+        elimma.show(); 
+    }//GEN-LAST:event_btnMoMatActionPerformed
+
+    private void btnNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotasActionPerformed
+        Documentos docs = new Documentos();
+        try { 
+            docs.exportarNotas();
+        } catch (IOException ex) {
+            Logger.getLogger(MainScreen.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnNotasActionPerformed
 
     public static void main(String args[]) {
 

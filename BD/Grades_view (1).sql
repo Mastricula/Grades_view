@@ -25,7 +25,7 @@ id_profe INT PRIMARY KEY AUTO_INCREMENT,
 matricula VARCHAR(25) NOT NULL,
 nombre VARCHAR(20) NOT NULL,
 apellido VARCHAR(20) NOT NULL,
-cedula VARCHAR(11) NOT NULL,
+cedula VARCHAR(13) NOT NULL,
 fecha_nacimiento DATE NOT NULL,
 id_usu INT NOT NULL,
 CONSTRAINT fk_profe_usu FOREIGN KEY (id_usu) REFERENCES usuarios(id_usu)
@@ -86,10 +86,12 @@ SHOW TABLES;
 INSERT INTO Usuarios (usu, passw, rol) VALUES ('Admin', 'admin', 'admin');
 INSERT INTO Usuarios (usu, passw, rol) VALUES ('Paulo', '1234', 'profe');
 INSERT INTO Usuarios (usu, passw, rol) VALUES ('Aaron', '12345', 'estu');
+INSERT INTO Usuarios (usu, passw, rol) VALUES ('a', 'a', 'profe');
 INSERT INTO Usuarios (usu, passw, rol) VALUES ('Jose', '1234', 'admin');
 INSERT INTO Usuarios (usu, passw, rol) VALUES ('P-0000', 'P-0000', 'profe');
 INSERT INTO Usuarios (usu, passw, rol) VALUES ('P-0001', 'P-0001', 'profe');
 INSERT INTO Usuarios (usu, passw, rol) VALUES ('P-0002', 'P-0002', 'profe');
+INSERT INTO Usuarios (usu, passw, rol) VALUES ('P-0000', '2024-0000', 'profe');
 INSERT INTO Usuarios (usu, passw, rol) VALUES ('2024-0000', '2024-0000', 'estu');
 INSERT INTO Usuarios (usu, passw, rol) VALUES ('2024-0001', '2024-0001', 'estu');
 INSERT INTO Usuarios (usu, passw, rol) VALUES ('2024-0002', '2024-0002', 'estu');
@@ -212,9 +214,10 @@ desc estudiantes;
 SELECT * FROM Profesores;
 SELECT * FROM curso_mate;
 SELECT * FROM Materias;
-SELECT nombre, apellido FROM Estudiantes;
+SELECT * FROM Estudiantes;
+SELECT * FROM usuarios;
+SELECT * FROM profe_cursos;
+SELECT * FROM profe_mate;
+SELECT * FROM notas;
 
-SELECT e.nombre, e.apellido, e.matricula, 'Estudiante' AS tipo FROM estudiantes e WHERE e.id_usu = 7  
-UNION 
-SELECT p.nombre, p.apellido, p.matricula, 'Profesor' AS tipo FROM profesores p WHERE p.id_usu = 7;
-
+use Grades_view;

@@ -32,14 +32,13 @@ public class EliminarDocente extends javax.swing.JInternalFrame {
       String matricula = inputMatricula.getText();
       String nombre = inputNombre.getText();
       String apellido = inputApellido.getText();
-      String cedula = inputCedula.getText();
       String fechaDeNacimiento = inputFecha.getText();
       
       
       int respuesta =JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres editar los datos de este docente? '"+matricula + nombre + apellido+"' ", "Seleccione su respuesta", JOptionPane.YES_NO_OPTION);
       if(respuesta==JOptionPane.YES_NO_OPTION)
       {
-        admin.Editar(matricula, nombre, apellido, cedula, fechaDeNacimiento, tabla);
+        admin.Editar(matricula, nombre, apellido, fechaDeNacimiento, tabla);
         MostrarDocentesComboBox();
       }
     }
@@ -94,7 +93,7 @@ public class EliminarDocente extends javax.swing.JInternalFrame {
         int respuesta =JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres eliminar este Docente? '"+matriculaNombreApellido+"' ", "Seleccione su respuesta", JOptionPane.YES_NO_OPTION);
         if(respuesta==JOptionPane.YES_NO_OPTION)
         {       
-            admin.eliminarTablasIntermedias(matricula);
+            admin.eliminarTablasProfe(matricula);
             admin.Eliminar(matricula, tabla);
             MostrarDocentesComboBox();     
         }

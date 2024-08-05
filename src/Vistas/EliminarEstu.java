@@ -24,6 +24,7 @@ public class EliminarEstu extends javax.swing.JInternalFrame {
      */
     public EliminarEstu() {
         initComponents();
+        MostrarEstudiantesComboBox();
     }
     
      private int BuscarCurso()
@@ -152,7 +153,8 @@ public class EliminarEstu extends javax.swing.JInternalFrame {
         
         int respuesta =JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres eliminar este estudiante '"+matriculaNombreApellido+"' ", "Seleccione su respuesta", JOptionPane.YES_NO_OPTION);
         if(respuesta==JOptionPane.YES_NO_OPTION)
-        {       
+        {  
+            admin.eliminarTablasEstu(matricula);
             admin.Eliminar(matricula);
             MostrarEstudiantesComboBox();     
         }
@@ -184,6 +186,7 @@ public class EliminarEstu extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(238, 238, 238));
+        setClosable(true);
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
 
@@ -268,7 +271,7 @@ public class EliminarEstu extends javax.swing.JInternalFrame {
         });
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Edad");
+        jLabel4.setText("Fecha de nacimiento");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
