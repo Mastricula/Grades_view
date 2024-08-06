@@ -19,20 +19,6 @@ public class MainScreen extends javax.swing.JFrame {
     boolean estado = false;
     Conexion cx = new Conexion();
 
-    private void Resolucion() {
-        // Obtiene el entorno gráfico
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        // Obtiene el dispositivo gráfico principal (la pantalla principal)
-        GraphicsDevice gd = ge.getDefaultScreenDevice();
-        // Obtiene la configuración de la pantalla
-        DisplayMode dm = gd.getDisplayMode();
-        // Obtiene el ancho y el alto de la pantalla
-        int width = dm.getWidth();
-        int height = dm.getHeight();
-        String rs = width + "-" + height;
-        System.out.println(rs);
-    }
-
     public void AjustarVentana() {
         // Obtiene la resolución de la pantalla
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -58,7 +44,7 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void EstadoMenuModificar(boolean visible) {
         btnMoEst.setVisible(visible);
-        btnMoProf.setVisible(visible);
+        btnMoProfe.setVisible(visible);
         btnMoMat.setVisible(visible);
     }
 
@@ -99,10 +85,10 @@ public class MainScreen extends javax.swing.JFrame {
                 btnAgregar.setVisible(false);
                 btnModificar.setVisible(false);
                 btnNotas.setVisible(false);
-                jScrollPane1.setVisible(false);
+                btnMaterias.setVisible(false);
                 jTable1.setVisible(false);
             }
-            
+
             case "admin" -> {
                 btnPerfil.setText("Admin");
                 btnPerfil.disable();
@@ -113,6 +99,7 @@ public class MainScreen extends javax.swing.JFrame {
     }
 
     private void TablaNotas(Usuario data) {
+        
         ResultSet resultset = data.obtenerNotas();
 
         // Crear un modelo de tabla
@@ -143,7 +130,7 @@ public class MainScreen extends javax.swing.JFrame {
         // Asignar el modelo a la tabla
         jTable1.setModel(model);
     }
-    
+
     private void Promedio(Usuario data) {
         ResultSet resultset = data.obtenerNotas();
         double sumaTotales = 0;
@@ -176,12 +163,15 @@ public class MainScreen extends javax.swing.JFrame {
         }
     }
 
+    Usuario data2;
+
     public MainScreen(Usuario data) {
         initComponents();
         setLocationRelativeTo(null);
         EstadoMenuAgregar(false);
         EstadoMenuModificar(false);
         mostrarDatosUsuario(data);
+        data2 = data;
         jTable1.getTableHeader().setOpaque(false);
         jTable1.getTableHeader().setBackground(new Color(0x00ADB5));
         jTable1.getTableHeader().setForeground(new Color(0xFFFFFF));
@@ -215,7 +205,7 @@ public class MainScreen extends javax.swing.JFrame {
         btnAgregar = new rojeru_san.rsbutton.RSButtonRoundEffect();
         btnModificar = new rojeru_san.rsbutton.RSButtonRoundEffect();
         btnMoMat = new rojeru_san.rsbutton.RSButtonRoundEffect();
-        btnMoProf = new rojeru_san.rsbutton.RSButtonRoundEffect();
+        btnMoProfe = new rojeru_san.rsbutton.RSButtonRoundEffect();
         btnMoEst = new rojeru_san.rsbutton.RSButtonRoundEffect();
         btnAgEst = new rojeru_san.rsbutton.RSButtonRoundEffect();
         btnAgProf = new rojeru_san.rsbutton.RSButtonRoundEffect();
@@ -435,6 +425,11 @@ public class MainScreen extends javax.swing.JFrame {
         btnPerfil.setColorHover(new java.awt.Color(2, 133, 139));
         btnPerfil.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         btnPerfil.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPerfilActionPerformed(evt);
+            }
+        });
 
         btnNotas.setBackground(new java.awt.Color(0, 173, 181));
         btnNotas.setBorder(null);
@@ -498,14 +493,24 @@ public class MainScreen extends javax.swing.JFrame {
         btnMoMat.setColorHover(new java.awt.Color(2, 133, 139));
         btnMoMat.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
         btnMoMat.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnMoMat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoMatActionPerformed(evt);
+            }
+        });
 
-        btnMoProf.setBackground(new java.awt.Color(0, 173, 181));
-        btnMoProf.setBorder(null);
-        btnMoProf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Iconos/circle.png"))); // NOI18N
-        btnMoProf.setText("Profesores");
-        btnMoProf.setColorHover(new java.awt.Color(2, 133, 139));
-        btnMoProf.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
-        btnMoProf.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnMoProfe.setBackground(new java.awt.Color(0, 173, 181));
+        btnMoProfe.setBorder(null);
+        btnMoProfe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Iconos/circle.png"))); // NOI18N
+        btnMoProfe.setText("Profesores");
+        btnMoProfe.setColorHover(new java.awt.Color(2, 133, 139));
+        btnMoProfe.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
+        btnMoProfe.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnMoProfe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoProfeActionPerformed(evt);
+            }
+        });
 
         btnMoEst.setBackground(new java.awt.Color(0, 173, 181));
         btnMoEst.setBorder(null);
@@ -601,7 +606,7 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGap(54, 54, 54)
                 .addGroup(pnlMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnMoEst, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(btnMoProf, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnMoProfe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btnMoMat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -631,7 +636,7 @@ public class MainScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMoEst, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnMoProf, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnMoProfe, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(btnMoMat, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -813,10 +818,6 @@ public class MainScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    private void btnMoEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoEstActionPerformed
-
-    }//GEN-LAST:event_btnMoEstActionPerformed
-
     private void btnEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoActionPerformed
         if (!estado) {
             btnEstado.setIcon(new ImageIcon("src\\IMG\\Iconos\\circleOFF.png"));
@@ -831,7 +832,7 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEstadoActionPerformed
 
     private void btnPublicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPublicarActionPerformed
-        PublicarNotas pnotas = new PublicarNotas();
+        PublicarNotas pnotas = new PublicarNotas(data2);
         pantalla.add(pnotas);
         pnotas.show();
     }//GEN-LAST:event_btnPublicarActionPerformed
@@ -842,6 +843,30 @@ public class MainScreen extends javax.swing.JFrame {
         pantalla.add(agema);
         agema.show();
     }//GEN-LAST:event_btnAgMatActionPerformed
+
+    private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
+        Perfil pe = new Perfil(data2);
+        pantalla.add(pe);
+        pe.show();
+    }//GEN-LAST:event_btnPerfilActionPerformed
+
+    private void btnMoEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoEstActionPerformed
+        EliminarEstu ee = new EliminarEstu();
+        pantalla.add(ee);
+        ee.show();
+    }//GEN-LAST:event_btnMoEstActionPerformed
+
+    private void btnMoProfeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoProfeActionPerformed
+        EliminarDocente eep = new EliminarDocente();
+        pantalla.add(eep);
+        eep.show();
+    }//GEN-LAST:event_btnMoProfeActionPerformed
+
+    private void btnMoMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoMatActionPerformed
+        EliminarMateria em = new EliminarMateria();
+        pantalla.add(em);
+        em.show();
+    }//GEN-LAST:event_btnMoMatActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojeru_san.rsbutton.RSButtonRoundEffect btnAgEst;
@@ -855,16 +880,14 @@ public class MainScreen extends javax.swing.JFrame {
     private rojeru_san.complementos.RSButtonHover btnMin;
     private rojeru_san.rsbutton.RSButtonRoundEffect btnMoEst;
     private rojeru_san.rsbutton.RSButtonRoundEffect btnMoMat;
-    private rojeru_san.rsbutton.RSButtonRoundEffect btnMoProf;
+    private rojeru_san.rsbutton.RSButtonRoundEffect btnMoProfe;
     private rojeru_san.rsbutton.RSButtonRoundEffect btnModificar;
     private rojeru_san.rsbutton.RSButtonRoundEffect btnNotas;
     public rojeru_san.rsbutton.RSButtonRoundEffect btnPerfil;
     private rojeru_san.rsbutton.RSButtonRoundEffect btnPublicar;
     private rojeru_san.rsbutton.RSButtonRoundEffect btnSalir;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblProgresoC;
     private javax.swing.JLabel lblProgresoP;
@@ -875,7 +898,6 @@ public class MainScreen extends javax.swing.JFrame {
     private rojeru_san.rspanel.RSPanelGradiente pnlBase;
     private rojeru_san.rspanel.RSPanelGradiente pnlMenu;
     private LIB.JPanelRound pnlNota;
-    private LIB.JPanelRound pnlNota1;
     private LIB.JPanelRound pnlPromedioC;
     private LIB.JPanelRound pnlPromedioP;
     private rojeru_san.rsprogress.RSProgressCircleAnimated prgPromedio;
